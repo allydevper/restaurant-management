@@ -1,9 +1,6 @@
-$sidebar-bg: #282828;
-$sidebar-text-color: #ffffff;
-$sidebar-hover-bg: #3b3b3b;
-$sidebar-hover-text-color: #ffffff;
-$sidebar-active-bg: #1DB954;
-$sidebar-active-text-color: #ffffff;
+$spotify-green: #1DB954;
+$spotify-black: #191414;
+$spotify-white: #FFFFFF;
 
 .layout {
     display: flex;
@@ -12,7 +9,7 @@ $sidebar-active-text-color: #ffffff;
   
   .sidebar {
     flex: 0 0 auto; // Tamaño fijo
-    background-color: $sidebar-bg; // Color de fondo del sidebar
+    background-color: $spotify-black; // Color de fondo del sidebar
     height: 100vh; // Altura completa
   }
   

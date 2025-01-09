@@ -1,15 +1,12 @@
-$sidebar-bg: #282828;
-$sidebar-text-color: #ffffff;
-$sidebar-hover-bg: #3b3b3b;
-$sidebar-hover-text-color: #ffffff;
-$sidebar-active-bg: #1DB954;
-$sidebar-active-text-color: #ffffff;
+$spotify-green: #1DB954;
+$spotify-black: #191414;
+$spotify-white: #FFFFFF;
 
 :host {
   display: flex;
   flex-direction: column;
   width: 250px;
-  background-color: $sidebar-bg;
+  background-color: $spotify-black;
   // height: 100vh;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -20,7 +17,7 @@ $sidebar-active-text-color: #ffffff;
   margin-bottom: 30px;
 
   h2 {
-    color: $sidebar-text-color;
+    color: $spotify-white;
     font-size: 24px;
     margin: 0;
   }
@@ -29,7 +26,7 @@ $sidebar-active-text-color: #ffffff;
 .nav-link {
   display: flex;
   align-items: center;
-  color: $sidebar-text-color;
+  color: $spotify-white;
   text-decoration: none;
   padding: 10px 15px;
   margin: 8px 0;
@@ -38,13 +35,14 @@ $sidebar-active-text-color: #ffffff;
   transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
-    background-color: $sidebar-hover-bg;
-    color: $sidebar-hover-text-color;
+    background-color: $spotify-green;
+    color: $spotify-white;
+    text-decoration: none;
   }
 
   &.active {
-    background-color: $sidebar-active-bg;
-    color: $sidebar-active-text-color;
+    background-color: $spotify-green;
+    color: $spotify-black;
   }
 
   i {
