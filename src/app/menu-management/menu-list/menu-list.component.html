@@ -2,7 +2,7 @@
   <div class="flex justify-content-between mb-3">
     <h2>Menu Management</h2>
   </div>
-  <div class="card-header">
+  <div class="card-header mb-4" style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
     <button pButton label="Add New Dish" icon="pi pi-window-maximize" (click)="openNew()" type="button"></button>
   </div>
 
@@ -23,10 +23,12 @@
       <ng-template pTemplate="body" let-dish>
         <tr>
           <td>
-            <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded mr-2"
-              (click)="editDish(dish)" type="button"></button>
-            <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
-              (click)="deleteDish(dish)" type="button"></button>
+            <div style="display: flex; gap: 5px;">
+              <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded"
+                (click)="editDish(dish)" type="button"></button>
+              <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
+                (click)="deleteDish(dish)" type="button"></button>
+            </div>
           </td>
           <td>{{dish.name}}</td>
           <td>{{dish.category}}</td>
