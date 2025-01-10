@@ -7,13 +7,14 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Dish, DishCategory } from '../../models/dish.model';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-menu-list',
   templateUrl: './menu-list.component.html',
   styleUrls: ['./menu-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule],
   providers: [MessageService, ConfirmationService]
 })
 export class MenuListComponent implements OnInit {
@@ -40,7 +41,7 @@ export class MenuListComponent implements OnInit {
         name: 'Grilled Chicken',
         category: DishCategory.MAIN,
         price: 15.99,
-        isAvailable: true,
+        isAvailable: false,
         createdAt: new Date()
       }
     ];
