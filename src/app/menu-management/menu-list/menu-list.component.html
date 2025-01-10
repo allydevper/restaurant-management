@@ -5,10 +5,11 @@
   <div class="card-header">
     <button pButton label="Add New Dish" icon="pi pi-window-maximize" (click)="openNew()" type="button"></button>
   </div>
+
   <div class="card-body">
-    <p-table [value]="dishes" [paginator]="true" [rows]="10"
-      [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [showCurrentPageReport]="true" showGridlines>
+    <p-table [value]="dishes" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros" [showCurrentPageReport]="true"
+      showGridlines>
       <ng-template pTemplate="header">
         <tr>
           <th>Name</th>
