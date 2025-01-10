@@ -23,9 +23,9 @@
       <ng-template pTemplate="body" let-dish>
         <tr>
           <td>
-            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+            <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded mr-2"
               (click)="editDish(dish)" type="button"></button>
-            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger"
+            <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
               (click)="deleteDish(dish)" type="button"></button>
           </td>
           <td>{{dish.name}}</td>
