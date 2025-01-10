@@ -5,11 +5,8 @@ $spotify-white: #FFFFFF;
 :host {
   display: flex;
   flex-direction: column;
-  width: 250px;
   background-color: $spotify-black;
-  // height: 100vh;
   padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-header {

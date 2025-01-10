@@ -4,13 +4,13 @@ $spotify-white: #FFFFFF;
 
 .layout {
     display: flex;
-    height: 100vh;
   }
   
   .sidebar {
     flex: 0 0 auto; // Tamaño fijo
     background-color: $spotify-black; // Color de fondo del sidebar
     height: 100vh; // Altura completa
+    width: 250px;
   }
   
   .main-container {
