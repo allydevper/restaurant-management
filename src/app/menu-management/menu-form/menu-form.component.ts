@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Dish, DishCategory } from '../../models/dish.model';
 import { MessageService } from 'primeng/api';
 import { Message } from 'primeng/message';
+import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
-  selector: 'app-dish-form',
+  selector: 'app-menu-form',
   standalone: true,
   imports: [ReactiveFormsModule, DropdownModule, CheckboxModule, Message],
-  templateUrl: './dish-form.component.html',
-  styleUrls: ['./dish-form.component.scss']
+  templateUrl: './menu-form.component.html',
+  styleUrls: ['./menu-form.component.scss']
 })
-export class DishFormComponent implements OnInit {
+export class MenuFormComponent implements OnInit {
   dishForm: FormGroup;
   categories = Object.values(DishCategory);
 
