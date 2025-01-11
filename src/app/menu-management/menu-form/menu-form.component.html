@@ -13,33 +13,33 @@
     </div>
   </div>
 
-  <form [formGroup]="dishForm" (ngSubmit)="onSubmit()" class="p-fluid">
-    <div class="field">
-      <label for="name">Name</label>
-      <input type="text" pInputText formControlName="name" />
-      <p-message *ngIf="dishForm.get('name')?.invalid && (dishForm.get('name')?.touched || dishForm.get('name')?.dirty)"
-        severity="error" text="Name is required"></p-message>
-    </div>
+  <form [formGroup]="dishForm" (ngSubmit)="onSubmit()" class="p-fluid grid grid-nogutter" style="gap: 1rem;">
+    <div class="col-12">
+      <div class="col-6">
+        <div class="field" style="display: flex; align-items: center; gap: 10px;">
+          <label for="name" class="block" style="width: 100px; text-align: right;">Name</label>
+          <input type="text" pInputText formControlName="name" class="w-full" />
+        </div>
 
-    <div class="field">
-      <label for="category">Category</label>
-      <p-select [options]="categories" formControlName="category"></p-select>
-    </div>
+        <div class="field" style="display: flex; align-items: center; gap: 10px;">
+          <label for="category" class="block" style="width: 100px; text-align: right;">Category</label>
+          <p-select [options]="categories" formControlName="category" class="w-full"></p-select>
+        </div>
 
-    <div class="field">
-      <label for="price">Price</label>
-      <p-inputNumber id="price" formControlName="price" [mode]="'decimal'" [min]="0"
-        [showButtons]="true"></p-inputNumber>
-      <p-message
-        *ngIf="dishForm.get('price')?.invalid && (dishForm.get('price')?.touched || dishForm.get('price')?.dirty)"
-        severity="error" text="Price must be a positive number"></p-message>
-    </div>
+        <div class="field" style="display: flex; align-items: center; gap: 10px;">
+          <label for="price" class="block" style="width: 100px; text-align: right;">Price</label>
+          <p-inputNumber id="price" formControlName="price" [mode]="'decimal'" [min]="0" [showButtons]="true"
+            class="w-full"></p-inputNumber>
+        </div>
 
-    <div class="field-checkbox">
-      <p-checkbox id="isAvailable" formControlName="isAvailable" binary="true"></p-checkbox>
-      <label for="isAvailable">Available</label>
+        <div class="field" style="display: flex; align-items: center; gap: 10px;">
+          <label for="isAvailable" class="block" style="width: 100px; text-align: right;">Available</label>
+          <p-checkbox id="isAvailable" formControlName="isAvailable" binary="true"></p-checkbox>
+        </div>
+      </div>
     </div>
   </form>
+
 </p-card>
 
 <p-toast></p-toast>
