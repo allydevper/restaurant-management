@@ -4,15 +4,15 @@ import { Dish, DishCategory } from '../../models/dish.model';
 import { MessageService } from 'primeng/api';
 import { Message } from 'primeng/message';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-menu-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DropdownModule, CheckboxModule, Message],
+  imports: [CommonModule, ReactiveFormsModule, SelectModule, CheckboxModule, Message],
   providers: [MessageService],
   templateUrl: './menu-form.component.html',
   styleUrls: ['./menu-form.component.scss']
