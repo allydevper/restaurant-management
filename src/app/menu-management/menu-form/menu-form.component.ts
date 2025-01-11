@@ -27,9 +27,8 @@ export class MenuFormComponent implements OnInit {
     this.dishForm = this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(0)]],
-      isAvailable: [true],
-      createdAt: [new Date()]
+      price: [0, [Validators.required, Validators.min(0)]],
+      isAvailable: [false] // Initialize as false or true
     });
   }
 
