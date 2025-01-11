@@ -6,12 +6,13 @@ import { Message } from 'primeng/message';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-menu-form',
   standalone: true,
-  imports: [ReactiveFormsModule, DropdownModule, CheckboxModule, Message],
+  imports: [CommonModule, ReactiveFormsModule, DropdownModule, CheckboxModule, Message],
   providers: [MessageService],
   templateUrl: './menu-form.component.html',
   styleUrls: ['./menu-form.component.scss']

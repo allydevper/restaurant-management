@@ -4,7 +4,7 @@
     <div class="field">
       <label for="name">Name</label>
       <input id="name" type="text" pInputText formControlName="name" />
-      <p-message *ngIf="dishForm.get('name').invalid && (dishForm.get('name').touched || dishForm.get('name').dirty)" severity="error" text="Name is required"></p-message>
+      <p-message *ngIf="dishForm.get('name')?.invalid && (dishForm.get('name')?.touched || dishForm.get('name')?.dirty)" severity="error" text="Name is required"></p-message>
     </div>
 
     <div class="field">
@@ -15,7 +15,7 @@
     <div class="field">
       <label for="price">Price</label>
       <input id="price" type="number" pInputText formControlName="price" />
-      <p-message *ngIf="dishForm.get('price').invalid && (dishForm.get('price').touched || dishForm.get('price').dirty)" severity="error" text="Price must be a positive number"></p-message>
+      <p-message *ngIf="dishForm.get('price')?.invalid && (dishForm.get('price')?.touched || dishForm.get('price')?.dirty)" severity="error" text="Price must be a positive number"></p-message>
     </div>
 
     <div class="field">
