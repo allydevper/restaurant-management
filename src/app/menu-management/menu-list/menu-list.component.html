@@ -12,9 +12,9 @@
   <p-table [value]="dishes" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} registros" [showCurrentPageReport]="true"
     showGridlines>
-    <ng-template pTemplate="header">
+    <ng-template #header>
       <tr>
-        <th style="width:120px"></th>
+        <th style="width:80px"></th>
         <th>Name</th>
         <th>Category</th>
         <th>Price</th>
@@ -22,9 +22,9 @@
         <th>Created At</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-dish>
+    <ng-template #body let-dish>
       <tr>
-        <td>
+        <td style="padding: 0.5rem;">
           <div style="display: flex; gap: 5px;">
             <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded"
               (click)="editDish(dish)" type="button"></button>
