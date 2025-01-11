@@ -10,11 +10,13 @@ import { Location } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-menu-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SelectModule, CheckboxModule, MessageModule, ToastModule, ConfirmDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, SelectModule, CheckboxModule, ButtonModule, MessageModule, ToastModule, ConfirmDialogModule, CardModule],
   providers: [MessageService, ConfirmationService],
   templateUrl: './menu-form.component.html',
   styleUrls: ['./menu-form.component.scss']
