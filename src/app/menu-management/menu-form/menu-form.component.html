@@ -13,8 +13,8 @@
     </div>
   </div>
 
-  <form [formGroup]="dishForm" (ngSubmit)="onSubmit()" class="p-fluid grid grid-nogutter" style="gap: 1rem;">
-    <div class="col-4 md:col-4">
+  <form [formGroup]="dishForm" (ngSubmit)="onSubmit()" class="p-fluid grid" style="gap: 1rem;">
+    <div class="col-12 xl:col-4 lg:col-6 md:col-12 sm:col-12">
       <div class="field" style="display: flex; align-items: center; gap: 10px;">
         <label for="name" class="block" style="width: 100px; text-align: right;">Name</label>
         <input type="text" pInputText formControlName="name" class="w-full" />
