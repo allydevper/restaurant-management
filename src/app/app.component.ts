@@ -11,5 +11,5 @@ import { TopbarComponent } from './topbar/topbar.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'gestion-restaurantes';
+  title = 'restaurant-management';
 }

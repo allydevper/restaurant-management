@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'gestion-restaurantes' title`, () => {
+  it(`should have the 'restaurant-management' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('gestion-restaurantes');
+    expect(app.title).toEqual('restaurant-management');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, gestion-restaurantes');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, restaurant-management');
   });
 });

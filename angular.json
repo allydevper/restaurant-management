@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gestion-restaurantes": {
+    "restaurant-management": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/gestion-restaurantes",
+            "outputPath": "dist/restaurant-management",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "gestion-restaurantes:build:production"
+              "buildTarget": "restaurant-management:build:production"
             },
             "development": {
-              "buildTarget": "gestion-restaurantes:build:development"
+              "buildTarget": "restaurant-management:build:development"
             }
           },
           "defaultConfiguration": "development"
