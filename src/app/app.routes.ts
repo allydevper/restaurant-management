@@ -7,7 +7,6 @@ export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'menu', component: MenuListComponent },
-  { path: 'menu/new', component: MenuFormComponent },
-  { path: 'menu-form', component: MenuFormComponent },
-  { path: 'menu-form/:id', component: MenuFormComponent },
+  { path: 'menu/create', component: MenuFormComponent },
+  { path: 'menu/edit/:id', component: MenuFormComponent },
 ];

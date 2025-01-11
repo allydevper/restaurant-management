@@ -1,12 +1,12 @@
 <div class="flex justify-content-between mb-3">
-  <h2>Gestion de Menus</h2>
+  <h2>Gestion de Menu</h2>
 </div>
 <p-card>
   <ng-template #header>
   </ng-template>
 
   <div class="card-header mb-4" style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
-    <button pButton label="Agregar Plato" icon="pi pi-plus" (click)="navigateToMenuForm()" type="button"
+    <button pButton label="Agregar Plato" icon="pi pi-plus" (click)="createDish()" type="button"
       class="p-button-success"></button>
   </div>
   <p-table [value]="dishes" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"

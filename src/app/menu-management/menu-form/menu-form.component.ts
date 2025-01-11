@@ -6,6 +6,7 @@ import { Message } from 'primeng/message';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-menu-form',
@@ -19,7 +20,7 @@ export class MenuFormComponent implements OnInit {
   dishForm: FormGroup;
   categories = Object.values(DishCategory);
 
-  constructor(private fb: FormBuilder, private messageService: MessageService) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location) {
     this.dishForm = this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
@@ -43,5 +44,9 @@ export class MenuFormComponent implements OnInit {
       });
       this.dishForm.reset();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

@@ -26,7 +26,7 @@ export class MenuListComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     // Simulación de carga de platos
@@ -50,12 +50,8 @@ export class MenuListComponent implements OnInit {
     ];
   }
 
-  openNew() {
-    this.navigateToMenuForm();
-  }
-
   editDish(dish: Dish) {
-    this.router.navigate(['/menu-form', dish.dishId]);
+    this.router.navigate(['/menu/edit', dish.dishId]);
   }
 
   deleteDish(dish: Dish) {
@@ -75,7 +71,7 @@ export class MenuListComponent implements OnInit {
     });
   }
 
-  navigateToMenuForm() {
-    this.router.navigate(['/menu-form']);
+  createDish() {
+    this.router.navigate(['/menu/create']);
   }
 }
