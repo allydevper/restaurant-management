@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Dish, DishCategory } from '../../models/dish.model';
-import { MessageService } from 'primeng/api';
-import { Message } from 'primeng/message';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
 import { SelectModule } from 'primeng/select';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-menu-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SelectModule, CheckboxModule, Message],
-  providers: [MessageService],
+  imports: [CommonModule, ReactiveFormsModule, SelectModule, CheckboxModule, MessageModule, ToastModule, ConfirmDialogModule],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './menu-form.component.html',
   styleUrls: ['./menu-form.component.scss']
 })
@@ -31,7 +33,7 @@ export class MenuFormComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit() {
     if (this.dishForm.valid) {

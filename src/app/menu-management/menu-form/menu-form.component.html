@@ -1,5 +1,9 @@
 <div class="card">
   <h2>Create/Edit Dish</h2>
+  <div class="card-header mb-4" style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+    <button pButton label="Submit" icon="pi pi-check" type="submit" class="p-button-success"></button>
+    <button pButton label="Back" icon="pi pi-arrow-left" (click)="goBack()" type="button" class="p-button-secondary"></button>
+  </div>
   <form [formGroup]="dishForm" (ngSubmit)="onSubmit()">
     <div class="field">
       <label for="name">Name</label>
@@ -22,8 +26,7 @@
       <label for="isAvailable">Available</label>
       <p-checkbox id="isAvailable" formControlName="isAvailable"></p-checkbox>
     </div>
-
-    <button type="submit" pButton label="Submit" [disabled]="dishForm.invalid"></button>
-    <button pButton label="Back" icon="pi pi-arrow-left" (click)="goBack()" type="button" class="p-button-secondary"></button>
   </form>
 </div>
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
