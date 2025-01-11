@@ -12,6 +12,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu-form',
@@ -24,8 +25,9 @@ import { InputTextModule } from 'primeng/inputtext';
 export class MenuFormComponent implements OnInit {
   dishForm: FormGroup;
   categories = Object.values(DishCategory);
+  isEditMode: boolean = false;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute) {
     this.dishForm = this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
@@ -34,17 +36,31 @@ export class MenuFormComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const dishId = this.route.snapshot.paramMap.get('id');
+    if (dishId) {
+      this.isEditMode = true;
+    }
+  }
 
   onSubmit() {
     if (this.dishForm.valid) {
       const newDish: Dish = this.dishForm.value;
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Dish created successfully!',
-        life: 3000
-      });
+      if (this.isEditMode) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Dish updated successfully!',
+          life: 3000
+        });
+      } else {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Dish created successfully!',
+          life: 3000
+        });
+      }
       this.dishForm.reset();
     }
   }

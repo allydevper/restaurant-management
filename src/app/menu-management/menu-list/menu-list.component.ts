@@ -57,7 +57,7 @@ export class MenuListComponent implements OnInit {
   deleteDish(dish: Dish) {
     this.confirmationService.confirm({
       message: '¿Estás seguro de que quieres eliminar ' + dish.name + '?',
-      header: 'Confirm',
+      header: 'Confirmar',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         // Lógica para eliminar el plato

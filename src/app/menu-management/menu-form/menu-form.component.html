@@ -1,5 +1,5 @@
 <div class="flex justify-content-between mb-3">
-  <h2>Create/Edit Dish</h2>
+  <h2>{{ isEditMode ? 'Editar Plato' : 'Crear Plato' }}</h2>
 </div>
 
 <p-card>
@@ -7,7 +7,7 @@
 
   <div class="card-header mb-4" style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
     <div style="display: flex; gap: 5px;">
-      <button pButton label="Guardar" icon="pi pi-save" type="submit" class="p-button-success"></button>
+      <button pButton label="{{ isEditMode ? 'Update' : 'Create' }}" icon="pi pi-save" type="submit" class="p-button-success"></button>
       <button pButton label="Atrás" icon="pi pi-arrow-left" (click)="goBack()" type="button"
         class="p-button-secondary"></button>
     </div>
