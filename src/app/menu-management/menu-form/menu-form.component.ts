@@ -11,6 +11,7 @@ import { CheckboxModule } from 'primeng/checkbox';
   selector: 'app-menu-form',
   standalone: true,
   imports: [ReactiveFormsModule, DropdownModule, CheckboxModule, Message],
+  providers: [MessageService],
   templateUrl: './menu-form.component.html',
   styleUrls: ['./menu-form.component.scss']
 })

@@ -6,7 +6,7 @@
   </ng-template>
 
   <div class="card-header mb-4" style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
-    <button pButton label="Agregar Plato" icon="pi pi-plus" (click)="openNew()" type="button"
+    <button pButton label="Agregar Plato" icon="pi pi-plus" (click)="navigateToMenuForm()" type="button"
       class="p-button-success"></button>
   </div>
   <p-table [value]="dishes" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"

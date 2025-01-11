@@ -8,4 +8,6 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'menu', component: MenuListComponent },
   { path: 'menu/new', component: MenuFormComponent },
+  { path: 'menu-form', component: MenuFormComponent },
+  { path: 'menu-form/:id', component: MenuFormComponent },
 ];

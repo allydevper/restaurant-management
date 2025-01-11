@@ -9,6 +9,7 @@ import { Dish, DishCategory } from '../../models/dish.model';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-list',
@@ -23,7 +24,8 @@ export class MenuListComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -49,11 +51,11 @@ export class MenuListComponent implements OnInit {
   }
 
   openNew() {
-    // Lógica para abrir el formulario de nuevo plato
+    this.navigateToMenuForm();
   }
 
   editDish(dish: Dish) {
-    // Lógica para editar el plato
+    this.router.navigate(['/menu-form', dish.dishId]);
   }
 
   deleteDish(dish: Dish) {
@@ -71,5 +73,9 @@ export class MenuListComponent implements OnInit {
         });
       }
     });
+  }
+
+  navigateToMenuForm() {
+    this.router.navigate(['/menu-form']);
   }
 }
