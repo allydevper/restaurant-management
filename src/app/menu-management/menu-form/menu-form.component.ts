@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Dish, DishCategory } from '../../models/dish.model';
+import { Dish } from '../../models/dish.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ActivatedRoute } from '@angular/router';
+import { DishesService } from '../../services/dishes.service';
 
 @Component({
   selector: 'app-menu-form',
@@ -24,10 +25,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MenuFormComponent implements OnInit {
   dishForm: FormGroup;
-  categories = Object.values(DishCategory);
+  categories = Object.values([
+    { id: 1, name: 'Aperitivo' },
+    { id: 2, name: 'Principal' },
+    { id: 3, name: 'Postre' },
+    { id: 4, name: 'Bebida' }]
+  );
   isEditMode: boolean = false;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute, private dishesService: DishesService) {
     this.dishForm = this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
@@ -47,21 +53,19 @@ export class MenuFormComponent implements OnInit {
     if (this.dishForm.valid) {
       const newDish: Dish = this.dishForm.value;
       if (this.isEditMode) {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Dish updated successfully!',
-          life: 3000
+        const dishId = this.route.snapshot.paramMap.get('id');
+        this.dishesService.updateDish(dishId!, newDish).subscribe(response => {
+          console.log(response);
+          this.messageService.add({ severity: 'success', summary: 'Dish Updated', detail: 'The dish has been updated successfully.' });
+          this.goBack();
         });
       } else {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Dish created successfully!',
-          life: 3000
+        this.dishesService.createDish(newDish).subscribe(response => {
+          console.log(response);
+          this.messageService.add({ severity: 'success', summary: 'Dish Created', detail: 'The dish has been created successfully.' });
+          this.goBack();
         });
       }
-      this.dishForm.reset();
     }
   }
 
