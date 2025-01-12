@@ -66,6 +66,8 @@ export class MenuFormComponent implements OnInit {
           this.goBack();
         });
       }
+    } else {
+      this.dishForm.markAllAsTouched();
     }
   }
 
