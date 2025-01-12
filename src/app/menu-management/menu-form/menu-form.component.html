@@ -21,29 +21,35 @@
           <label for="name" class="block" style="width: 100px; text-align: right;">Nombre</label>
           <input type="text" pInputText formControlName="name" class="w-full" />
         </div>
-        <p-message *ngIf="dishForm.get('name')?.hasError('required') && dishForm.get('name')?.touched" severity="error"
+        <p-message size="small" *ngIf="dishForm.get('name')?.hasError('required') && dishForm.get('name')?.touched" severity="error"
           text="Nombre es requerido."></p-message>
       </div>
 
-      <div class="field" style="display: flex; align-items: center; gap: 10px;">
-        <label for="category" class="block" style="width: 100px; text-align: right;">Categoria</label>
-        <p-select [options]="categories" formControlName="category" optionLabel="name" optionValue="id"
-          class="w-full"></p-select>
+      <div class="field" style="display: flex; flex-direction: column; gap: 5px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label for="category" class="block" style="width: 100px; text-align: right;">Categoria</label>
+          <p-select [options]="categories" formControlName="category" optionLabel="name" optionValue="id"
+            class="w-full"></p-select>
+        </div>
+        <p-message size="small" *ngIf="dishForm.get('category')?.hasError('required') && dishForm.get('category')?.touched"
+          severity="error" text="Categoria es requerida."></p-message>
       </div>
-      <p-message *ngIf="dishForm.get('category')?.hasError('required') && dishForm.get('category')?.touched"
-        severity="error" text="Categoria es requerida."></p-message>
 
-      <div class="field" style="display: flex; align-items: center; gap: 10px;">
-        <label for="price" class="block" style="width: 100px; text-align: right;">Precio</label>
-        <p-inputNumber id="price" formControlName="price" [mode]="'decimal'" [min]="0" [showButtons]="true"
-          class="w-full"></p-inputNumber>
+      <div class="field" style="display: flex; flex-direction: column; gap: 5px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label for="price" class="block" style="width: 100px; text-align: right;">Precio</label>
+          <p-inputNumber id="price" formControlName="price" [mode]="'decimal'" [min]="0" [showButtons]="true"
+            class="w-full"></p-inputNumber>
+        </div>
+        <p-message size="small" *ngIf="dishForm.get('price')?.hasError('min') && dishForm.get('price')?.touched" severity="error"
+          text="El precio debe ser mayor o igual a 0."></p-message>
       </div>
-      <p-message *ngIf="dishForm.get('price')?.hasError('min') && dishForm.get('price')?.touched" severity="error"
-        text="El precio debe ser mayor o igual a 0."></p-message>
 
-      <div class="field" style="display: flex; align-items: center; gap: 10px;">
-        <label for="isAvailable" class="block" style="width: 100px; text-align: right;">Disponible</label>
-        <p-checkbox id="isAvailable" formControlName="isAvailable" binary="true"></p-checkbox>
+      <div class="field" style="display: flex; flex-direction: column; gap: 5px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label for="isAvailable" class="block" style="width: 100px; text-align: right;">Disponible</label>
+          <p-checkbox id="isAvailable" formControlName="isAvailable" binary="true"></p-checkbox>
+        </div>
       </div>
     </div>
   </form>
