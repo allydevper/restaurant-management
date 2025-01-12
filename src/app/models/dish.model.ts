@@ -1,15 +1,15 @@
 export enum DishCategory {
-    APPETIZER = 'Appetizer',
-    MAIN = 'Main',
-    DESSERT = 'Dessert',
-    BEVERAGE = 'Beverage'
+    APPETIZER = 'Aperitivo',
+    MAIN = 'Principal',
+    DESSERT = 'Postre',
+    BEVERAGE = 'Bebida'
 }
 
 export interface Dish {
-    dishId?: number;
+    dishid?: number;
     name: string;
-    category: DishCategory;
+    category: number;
     price: number;
-    isAvailable: boolean;
-    createdAt?: Date;
+    isavailable: boolean;
+    createdat?: Date;
 }

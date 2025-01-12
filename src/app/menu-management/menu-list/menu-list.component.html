@@ -15,11 +15,11 @@
     <ng-template #header>
       <tr>
         <th style="width:80px"></th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th>Available</th>
-        <th>Created At</th>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Disponible</th>
+        <th>Creacion</th>
       </tr>
     </ng-template>
     <ng-template #body let-dish>
@@ -33,14 +33,14 @@
           </div>
         </td>
         <td>{{dish.name}}</td>
-        <td>{{dish.category}}</td>
+        <td>{{dish.dishescategory.name}}</td>
         <td>{{dish.price | currency}}</td>
         <td>
-          <span [class]="'badge badge-' + (dish.isAvailable ? 'success' : 'danger')" style="padding: 5px;">
-            {{dish.isAvailable ? 'Available' : 'Not Available'}}
+          <span [class]="'badge badge-' + (dish.isavailable ? 'success' : 'danger')" style="padding: 5px;">
+            {{dish.isavailable ? 'Disponible' : 'No Disponible'}}
           </span>
         </td>
-        <td>{{dish.createdAt | date}}</td>
+        <td>{{dish.createdat | date:'dd/MM/yy'}}</td>
       </tr>
     </ng-template>
   </p-table>
