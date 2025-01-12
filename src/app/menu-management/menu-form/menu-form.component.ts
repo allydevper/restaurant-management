@@ -36,9 +36,9 @@ export class MenuFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute, private dishesService: DishesService) {
     this.dishForm = this.fb.group({
       name: ['', Validators.required],
-      category: ['', Validators.required],
+      dishescategoryid: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
-      isAvailable: [false]
+      isavailable: [true]
     });
   }
 
