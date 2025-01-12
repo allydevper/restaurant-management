@@ -2,7 +2,7 @@
 export interface Dish {
     dishid?: number;
     name: string;
-    category: number;
+    dishescategoryid: number;
     price: number;
     isavailable: boolean;
     createdat?: Date;

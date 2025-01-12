@@ -60,6 +60,7 @@ export class MenuFormComponent implements OnInit {
           this.goBack();
         });
       } else {
+        console.log(newDish);
         this.dishesService.createDish(newDish).subscribe(response => {
           console.log(response);
           this.messageService.add({ severity: 'success', summary: 'Dish Created', detail: 'The dish has been created successfully.' });
