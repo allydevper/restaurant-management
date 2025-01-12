@@ -5,45 +5,50 @@
   <ng-template #header>
   </ng-template>
 
-  <div class="card-header mb-4" style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
-    <button size="small" pButton label="Agregar Plato" icon="pi pi-plus" (click)="createDish()" type="button"
-      class="p-button-success"></button>
+  <div class="flex flex-column gap-2">
+    <div class="flex justify-content-end">
+      <button size="small" pButton label="Agregar Plato" icon="pi pi-plus" (click)="createDish()" type="button"
+        class="p-button-success"></button>
+    </div>
+    <p-table [value]="dishes" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
+      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total" [showCurrentPageReport]="true"
+      showGridlines>
+      <ng-template #header>
+        <tr>
+          <th style="width:80px"></th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Disponibilidad</th>
+          <th>Creación</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-dish>
+        <tr>
+          <td style="padding: 0.5rem;">
+            <div class="flex gap-1">
+              <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded"
+                (click)="editDish(dish)" type="button"></button>
+              <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
+                (click)="deleteDish(dish)" type="button"></button>
+            </div>
+          </td>
+          <td>{{dish.name}}</td>
+          <td>{{dish.dishescategory.name}}</td>
+          <td>{{dish.price | currency}}</td>
+          <td>
+            <span *ngIf="dish.isavailable; else notAvailable">
+              <p-tag value="Disponible" severity="success" />
+            </span>
+            <ng-template #notAvailable>
+              <p-tag value="No Disponible" severity="danger" />
+            </ng-template>
+          </td>
+          <td>{{dish.createdat | date:'dd/MM/yy'}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
-  <p-table [value]="dishes" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
-    currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total" [showCurrentPageReport]="true"
-    showGridlines>
-    <ng-template #header>
-      <tr>
-        <th style="width:80px"></th>
-        <th>Nombre</th>
-        <th>Categoría</th>
-        <th>Precio</th>
-        <th>Disponibilidad</th>
-        <th>Creación</th>
-      </tr>
-    </ng-template>
-    <ng-template #body let-dish>
-      <tr>
-        <td style="padding: 0.5rem;">
-          <div style="display: flex; gap: 5px;">
-            <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded"
-              (click)="editDish(dish)" type="button"></button>
-            <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
-              (click)="deleteDish(dish)" type="button"></button>
-          </div>
-        </td>
-        <td>{{dish.name}}</td>
-        <td>{{dish.dishescategory.name}}</td>
-        <td>{{dish.price | currency}}</td>
-        <td>
-          <span [class]="'badge badge-' + (dish.isavailable ? 'success' : 'danger')" style="padding: 5px;">
-            {{dish.isavailable ? 'Disponible' : 'No Disponible'}}
-          </span>
-        </td>
-        <td>{{dish.createdat | date:'dd/MM/yy'}}</td>
-      </tr>
-    </ng-template>
-  </p-table>
 </p-card>
 <p-toast></p-toast>
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

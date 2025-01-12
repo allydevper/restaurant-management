@@ -11,13 +11,14 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
 import { DishesService } from '../../services/dishes.service';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-menu-list',
   templateUrl: './menu-list.component.html',
   styleUrls: ['./menu-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule],
+  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule],
   providers: [MessageService, ConfirmationService]
 })
 export class MenuListComponent implements OnInit {
