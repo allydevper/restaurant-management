@@ -42,7 +42,7 @@ export class MenuListComponent implements OnInit {
       },
       (error) => {
         console.error(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load dishes' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los platos.' });
       }
     );
   }
@@ -53,16 +53,27 @@ export class MenuListComponent implements OnInit {
 
   deleteDish(dish: Dish) {
     this.confirmationService.confirm({
-      message: '¿Estás seguro de que quieres eliminar ' + dish.name + '?',
+      message: '¿Estás seguro de que deseas eliminar este plato?',
       header: 'Confirmar',
       icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Si',
+      rejectLabel: 'No',
       accept: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Dish Deleted',
-          life: 3000
-        });
+        this.dishesService.deleteDish(dish.dishid!.toString()).subscribe(
+          (response) => {
+            if (!response.error) {
+              this.dishes = this.dishes.filter(d => d.dishid !== dish.dishid);
+              this.messageService.add({ severity: 'success', summary: 'Plato Eliminado', detail: 'El plato ha sido eliminado correctamente.' });
+            }
+            else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+            }
+          },
+          (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el plato.' });
+          }
+        );
       }
     });
   }

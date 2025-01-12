@@ -54,16 +54,23 @@ export class MenuFormComponent implements OnInit {
       const newDish: Dish = this.dishForm.value;
       if (this.isEditMode) {
         const dishId = this.route.snapshot.paramMap.get('id');
-        this.dishesService.updateDish(dishId!, newDish).subscribe(response => {
-          console.log(response);
-          this.messageService.add({ severity: 'success', summary: 'Dish Updated', detail: 'The dish has been updated successfully.' });
-          this.goBack();
-        });
+        this.dishesService.updateDish(dishId!, newDish).subscribe((response) => {
+          if (!response.error) {
+            this.messageService.add({ severity: 'success', summary: 'Plato Actualizado', detail: 'El plato ha sido actualizado correctamente.' });
+            this.goBack();
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+          }
+        },
+          (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el plato.' });
+          });
       } else {
         console.log(newDish);
         this.dishesService.createDish(newDish).subscribe(response => {
           console.log(response);
-          this.messageService.add({ severity: 'success', summary: 'Dish Created', detail: 'The dish has been created successfully.' });
+          this.messageService.add({ severity: 'success', summary: 'Plato Creado', detail: 'El plato ha sido creado correctamente.' });
           this.goBack();
         });
       }
