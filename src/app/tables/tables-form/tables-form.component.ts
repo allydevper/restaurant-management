@@ -48,7 +48,7 @@ export class TablesFormComponent implements OnInit {
             status: response.data.status
           });
         } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
       });
     }
@@ -66,7 +66,7 @@ export class TablesFormComponent implements OnInit {
               this.messageService.add({ severity: 'success', summary: 'Mesa Actualizada', detail: 'La mesa ha sido actualizada correctamente.' });
               this.goBack();
             } else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
           (error) => {
@@ -76,6 +76,7 @@ export class TablesFormComponent implements OnInit {
         );
       } else {
         console.log(newTable);
+        debugger
         this.tablesService.createTable(newTable).subscribe(
           (response) => {
             if (!response.error) {
@@ -83,7 +84,7 @@ export class TablesFormComponent implements OnInit {
               this.messageService.add({ severity: 'success', summary: 'Mesa Creada', detail: 'La mesa ha sido creada correctamente.' });
               this.goBack();
             } else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
           (error) => {

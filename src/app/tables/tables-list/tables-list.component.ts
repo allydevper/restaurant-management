@@ -37,7 +37,7 @@ export class TablesListComponent implements OnInit {
         if (!response.error) {
           this.tables = response.data;
         } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
       },
       (error) => {
@@ -66,7 +66,7 @@ export class TablesListComponent implements OnInit {
               this.messageService.add({ severity: 'success', summary: 'Mesa Eliminada', detail: 'La mesa ha sido eliminada correctamente.' });
             }
             else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
           (error) => {

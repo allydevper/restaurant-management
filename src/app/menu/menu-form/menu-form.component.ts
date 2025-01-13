@@ -55,7 +55,7 @@ export class MenuFormComponent implements OnInit {
             isavailable: response.data.isavailable
           });
         } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
       }, (error) => {
         console.error(error);
@@ -75,7 +75,7 @@ export class MenuFormComponent implements OnInit {
             this.messageService.add({ severity: 'success', summary: 'Plato Actualizado', detail: 'El plato ha sido actualizado correctamente.' });
             this.goBack();
           } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
           }
         },
           (error) => {
@@ -91,7 +91,7 @@ export class MenuFormComponent implements OnInit {
             this.goBack();
           }
           else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
           }
         },
           (error) => {

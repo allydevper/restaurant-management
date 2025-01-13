@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment';
 import { Dish } from '../models/dish.model';
+import { ErrorResponse } from '../models/errorresponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,8 @@ export class DishesService {
     return this.http.post(this.apiUrl, dish);
   }
 
-  getDishes(): Observable<{ data: Dish[]; error: string }> {
-    return this.http.get<{ data: Dish[]; error: string }>(this.apiUrl);
-  }
-
-  getDishById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  getDishes(): Observable<{ data: Dish[]; error: ErrorResponse }> {
+    return this.http.get<{ data: Dish[]; error: ErrorResponse }>(this.apiUrl);
   }
 
   getDishesById(id: string): Observable<any> {

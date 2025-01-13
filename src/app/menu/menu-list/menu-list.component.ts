@@ -37,7 +37,7 @@ export class MenuListComponent implements OnInit {
         if (!response.error) {
           this.dishes = response.data;
         } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
       },
       (error) => {
@@ -66,7 +66,7 @@ export class MenuListComponent implements OnInit {
               this.messageService.add({ severity: 'success', summary: 'Plato Eliminado', detail: 'El plato ha sido eliminado correctamente.' });
             }
             else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
           (error) => {

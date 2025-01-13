@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment';
 import { Table } from '../models/table.model';
+import { ErrorResponse } from '../models/errorresponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class TablesService {
     return this.http.post(this.apiUrl, table);
   }
 
-  getTables(): Observable<{ data: Table[]; error: string }> {
-    return this.http.get<{ data: Table[]; error: string }>(this.apiUrl);
+  getTables(): Observable<{ data: Table[]; error: ErrorResponse }> {
+    return this.http.get<{ data: Table[]; error: ErrorResponse }>(this.apiUrl);
   }
 
   getTableById(id: string): Observable<any> {
