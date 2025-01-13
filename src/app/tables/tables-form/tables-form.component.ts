@@ -59,6 +59,7 @@ export class TablesFormComponent implements OnInit {
       const newTable = this.tableForm.value;
       if (this.isEditMode) {
         const tableId = this.route.snapshot.paramMap.get('id');
+        newTable.updatedat = new Date();
         console.log(newTable);
         this.tablesService.updateTable(tableId!, newTable).subscribe(
           (response) => {
