@@ -16,8 +16,12 @@ export class DishesService {
     return this.http.post(this.apiUrl, dish);
   }
 
-  getDishes(): Observable<{ data: Dish[]; error: string}> {
-    return this.http.get<{ data: Dish[]; error: string}>(this.apiUrl);
+  getDishes(): Observable<{ data: Dish[]; error: string }> {
+    return this.http.get<{ data: Dish[]; error: string }>(this.apiUrl);
+  }
+
+  getDishesById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 
   updateDish(id: string, dish: any): Observable<any> {

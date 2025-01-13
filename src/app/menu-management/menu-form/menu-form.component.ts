@@ -46,6 +46,21 @@ export class MenuFormComponent implements OnInit {
     const dishId = this.route.snapshot.paramMap.get('id');
     if (dishId) {
       this.isEditMode = true;
+      this.dishesService.getDishesById(dishId!).subscribe((response) => {
+        if (!response.error) {
+          this.dishForm.patchValue({
+            name: response.data.name,
+            dishescategoryid: response.data.dishescategoryid,
+            price: response.data.price,
+            isavailable: response.data.isavailable
+          });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+        }
+      }, (error) => {
+        console.error(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la información del plato.' });
+      });
     }
   }
 
@@ -54,6 +69,7 @@ export class MenuFormComponent implements OnInit {
       const newDish: Dish = this.dishForm.value;
       if (this.isEditMode) {
         const dishId = this.route.snapshot.paramMap.get('id');
+        console.log(newDish);
         this.dishesService.updateDish(dishId!, newDish).subscribe((response) => {
           if (!response.error) {
             this.messageService.add({ severity: 'success', summary: 'Plato Actualizado', detail: 'El plato ha sido actualizado correctamente.' });
@@ -69,10 +85,19 @@ export class MenuFormComponent implements OnInit {
       } else {
         console.log(newDish);
         this.dishesService.createDish(newDish).subscribe(response => {
-          console.log(response);
-          this.messageService.add({ severity: 'success', summary: 'Plato Creado', detail: 'El plato ha sido creado correctamente.' });
-          this.goBack();
-        });
+          if (!response.error) {
+            console.log(response);
+            this.messageService.add({ severity: 'success', summary: 'Plato Creado', detail: 'El plato ha sido creado correctamente.' });
+            this.goBack();
+          }
+          else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+          }
+        },
+          (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el plato.' });
+          });
       }
     } else {
       this.dishForm.markAllAsTouched();
