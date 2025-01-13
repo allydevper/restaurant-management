@@ -53,12 +53,27 @@ export class TablesListComponent implements OnInit {
 
   deleteTable(table: Table) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete this table?',
+      message: '¿Estás seguro de que deseas eliminar esta mesa?',
+      header: 'Confirmar',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Si',
+      rejectLabel: 'No',
       accept: () => {
-        this.tablesService.deleteTable(table.tableid!.toString()).subscribe(() => {
-          this.tables = this.tables.filter(t => t.tableid !== table.tableid);
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Table deleted successfully' });
-        });
+        this.tablesService.deleteTable(table.tableid!.toString()).subscribe(
+          (response) => {
+            if (!response.error) {
+              this.tables = this.tables.filter(t => t.tableid !== table.tableid);
+              this.messageService.add({ severity: 'success', summary: 'Mesa Eliminada', detail: 'La mesa ha sido eliminada correctamente.' });
+            }
+            else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+            }
+          },
+          (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar la mesa.' });
+          }
+        );
       }
     });
   }

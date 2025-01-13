@@ -56,16 +56,41 @@ export class TablesFormComponent implements OnInit {
 
   onSubmit() {
     if (this.tableForm.valid) {
+      const newTable = this.tableForm.value;
       if (this.isEditMode) {
-        this.tablesService.updateTable(this.route.snapshot.paramMap.get('id')!, this.tableForm.value).subscribe(() => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Table updated successfully' });
-          this.location.back();
-        });
+        const tableId = this.route.snapshot.paramMap.get('id');
+        console.log(newTable);
+        this.tablesService.updateTable(tableId!, newTable).subscribe(
+          (response) => {
+            if (!response.error) {
+              this.messageService.add({ severity: 'success', summary: 'Mesa Actualizada', detail: 'La mesa ha sido actualizada correctamente.' });
+              this.goBack();
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+            }
+          },
+          (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar la mesa.' });
+          }
+        );
       } else {
-        this.tablesService.createTable(this.tableForm.value).subscribe(() => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Table created successfully' });
-          this.location.back();
-        });
+        console.log(newTable);
+        this.tablesService.createTable(newTable).subscribe(
+          (response) => {
+            if (!response.error) {
+              console.log(response);
+              this.messageService.add({ severity: 'success', summary: 'Mesa Creada', detail: 'La mesa ha sido creada correctamente.' });
+              this.goBack();
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
+            }
+          },
+          (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear la mesa.' });
+          }
+        );
       }
     }
   }
