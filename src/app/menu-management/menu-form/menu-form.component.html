@@ -27,22 +27,26 @@
 
       <div class="field flex flex-column gap-1">
         <div class="flex align-items-center gap-2">
-          <label for="dishescategoryid" class="block text-right" style="width: 120px;">Categoria<span class="required">*</span></label>
+          <label for="dishescategoryid" class="block text-right" style="width: 120px;">Categoria<span
+              class="required">*</span></label>
           <p-select [options]="categories" formControlName="dishescategoryid" optionLabel="name" optionValue="id"
             class="w-full"></p-select>
         </div>
         <p-message size="small"
-          *ngIf="dishForm.get('dishescategoryid')?.hasError('required') && dishForm.get('dishescategoryid')?.touched" severity="error"
-          text="Categoria es requerida."></p-message>
+          *ngIf="dishForm.get('dishescategoryid')?.hasError('required') && dishForm.get('dishescategoryid')?.touched"
+          severity="error" text="Categoria es requerida."></p-message>
       </div>
 
       <div class="field flex flex-column gap-1">
         <div class="flex align-items-center gap-2">
-          <label for="price" class="block text-right" style="width: 120px;">Precio<span class="required">*</span></label>
-          <p-inputNumber id="price" formControlName="price" [mode]="'decimal'" [min]="0" [showButtons]="true"
-            class="w-full"></p-inputNumber>
+          <label for="price" class="block text-right" style="width: 120px;">Precio<span
+              class="required">*</span></label>
+          <p-inputNumber id="price" formControlName="price" [mode]="'decimal'" [min]="0" [minFractionDigits]="2"
+            [maxFractionDigits]="2" [useGrouping]="false" [showButtons]="true" class="w-full">
+          </p-inputNumber>
         </div>
-        <p-message size="small" *ngIf="(dishForm.get('price')?.hasError('required') || dishForm.get('price')?.hasError('min')) && dishForm.get('price')?.touched"
+        <p-message size="small"
+          *ngIf="(dishForm.get('price')?.hasError('required') || dishForm.get('price')?.hasError('min')) && dishForm.get('price')?.touched"
           severity="error" text="El precio debe ser mayor o igual a 0."></p-message>
       </div>
 
