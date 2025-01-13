@@ -34,10 +34,15 @@
           <td>{{table.tablenumber}}</td>
           <td>
             <span *ngIf="table.status === 'Libre'; else notAvailable">
-              <p-tag value="Libre" severity="success" />
+              <p-tag value="{{table.status}}" severity="success" />
             </span>
             <ng-template #notAvailable>
-              <p-tag value="Ocupada" severity="danger" />
+              <span *ngIf="table.status === 'En Limpieza'; else occupied">
+                <p-tag value="{{table.status}}" severity="warn" />
+              </span>
+              <ng-template #occupied>
+                <p-tag value="{{table.status}}" severity="danger" />
+              </ng-template>
             </ng-template>
           </td>
           <td>{{table.updatedat | date:'dd/MM/yy HH:mm'}}</td>
