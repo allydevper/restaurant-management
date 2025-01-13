@@ -24,7 +24,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TablesFormComponent implements OnInit {
   tableForm: FormGroup;
   isEditMode: boolean = false;
-  statusOptions = [
+  status = [
     { label: 'Libre', value: 'Libre' },
     { label: 'Ocupada', value: 'Ocupada' },
     { label: 'En Limpieza', value: 'En Limpieza' }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,18 +11,25 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CardModule } from 'primeng/card';
+import { MessageModule } from 'primeng/message';
+import { SelectModule } from 'primeng/select';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-users-form',
   templateUrl: './users-form.component.html',
   styleUrls: ['./users-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, MessageModule],
   providers: [MessageService]
 })
 export class UsersFormComponent implements OnInit {
   userForm: FormGroup;
   isEditMode: boolean = false;
+  roles = [
+    { label: 'Admin', value: 'Admin' },
+    { label: 'Mesero', value: 'Mesero' }
+  ];
 
   constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute, private usersService: UsersService) {
     this.userForm = this.fb.group({
