@@ -6,16 +6,17 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { TablesService } from '../../services/tables.service';
-import { ActivatedRoute } from '@angular/router';
 import { MessageModule } from 'primeng/message';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { TablesService } from '../../services/tables.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tables-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, MessageModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, MessageModule, InputTextModule, InputNumberModule],
   providers: [MessageService, ConfirmationService],
   templateUrl: './tables-form.component.html',
   styleUrls: ['./tables-form.component.scss']
@@ -31,7 +32,7 @@ export class TablesFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute, private tablesService: TablesService) {
     this.tableForm = this.fb.group({
-      tablenumber: ['', Validators.required],
+      tablenumber: [0, [Validators.required, Validators.min(0)]],
       status: ['', Validators.required]
     });
   }
