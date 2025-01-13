@@ -20,6 +20,10 @@ export class DishesService {
     return this.http.get<{ data: Dish[]; error: string }>(this.apiUrl);
   }
 
+  getDishById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
   getDishesById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);
   }

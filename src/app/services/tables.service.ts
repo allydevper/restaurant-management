@@ -19,6 +19,10 @@ export class TablesService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getTableById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
   updateTable(id: string, table: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, table);
   }
