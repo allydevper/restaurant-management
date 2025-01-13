@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment';
+import { Order } from '../models/order.model';
+import { ErrorResponse } from '../models/errorresponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,8 @@ export class OrdersService {
     return this.http.post(this.apiUrl, order);
   }
 
-  getOrders(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getOrders(): Observable<{ data: Order[]; error: ErrorResponse }> {
+    return this.http.get<{ data: Order[]; error: ErrorResponse }>(this.apiUrl);
   }
 
   getOrderById(id: string): Observable<any> {
