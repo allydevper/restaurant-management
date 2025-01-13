@@ -18,16 +18,16 @@
     <div class="col-12 xl:col-4 lg:col-6 md:col-12 sm:col-12">
       <div class="field flex flex-column gap-1">
         <div class="flex align-items-center gap-2">
-          <label for="username" class="block text-right" style="width: 120px;">Nombre de Usuario<span class="required">*</span></label>
+          <label for="username" class="block text-right" style="width: 130px;">Usuario<span class="required">*</span></label>
           <input type="text" pInputText formControlName="username" class="w-full" />
         </div>
         <p-message size="small" *ngIf="userForm.get('username')?.hasError('required') && userForm.get('username')?.touched"
-          severity="error" text="Nombre de Usuario es requerido."></p-message>
+          severity="error" text="Usuario es requerido."></p-message>
       </div>
 
       <div class="field flex flex-column gap-1">
         <div class="flex align-items-center gap-2">
-          <label for="passwordhash" class="block text-right" style="width: 120px;">Contraseña<span class="required">*</span></label>
+          <label for="passwordhash" class="block text-right" style="width: 130px;">Contraseña<span class="required">*</span></label>
           <input type="password" pInputText formControlName="passwordhash" class="w-full" />
         </div>
         <p-message size="small" *ngIf="userForm.get('passwordhash')?.hasError('required') && userForm.get('passwordhash')?.touched"
@@ -36,7 +36,7 @@
 
       <div class="field flex flex-column gap-1">
         <div class="flex align-items-center gap-2">
-          <label for="role" class="block text-right" style="width: 120px;">Rol<span class="required">*</span></label>
+          <label for="role" class="block text-right" style="width: 130px;">Rol<span class="required">*</span></label>
           <p-select [options]="roles" formControlName="role" optionLabel="label" optionValue="value"
             class="w-full"></p-select>
         </div>

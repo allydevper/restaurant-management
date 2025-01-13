@@ -23,7 +23,6 @@ import { UsersService } from '../../services/users.service';
 export class UsersListComponent implements OnInit {
   users: User[] = [];
   cols: any[] = [];
-  loading: boolean = true;
 
   constructor(
     private messageService: MessageService,
@@ -44,7 +43,6 @@ export class UsersListComponent implements OnInit {
       (response) => {
         if (!response.error) {
           this.users = response.data;
-          this.loading = false;
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
