@@ -24,7 +24,7 @@
             class="w-full"></p-inputNumber>
         </div>
         <p-message size="small"
-          *ngIf="tableForm.get('tablenumber')?.hasError('required') && tableForm.get('tablenumber')?.touched"
+          *ngIf="(tableForm.get('tablenumber')?.hasError('required')  || tableForm.get('tablenumber')?.hasError('min')) && tableForm.get('tablenumber')?.touched"
           severity="error" text="Número de mesa es requerido."></p-message>
       </div>
 

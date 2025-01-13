@@ -92,6 +92,8 @@ export class TablesFormComponent implements OnInit {
           }
         );
       }
+    } else {
+      this.tableForm.markAllAsTouched();
     }
   }
 
