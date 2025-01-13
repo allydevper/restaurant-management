@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment';
+import { Table } from '../models/table.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class TablesService {
     return this.http.post(this.apiUrl, table);
   }
 
-  getTables(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getTables(): Observable<{ data: Table[]; error: string }> {
+    return this.http.get<{ data: Table[]; error: string }>(this.apiUrl);
   }
 
   getTableById(id: string): Observable<any> {

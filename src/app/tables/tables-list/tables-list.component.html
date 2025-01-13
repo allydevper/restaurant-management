@@ -1,0 +1,48 @@
+<div class="flex justify-content-between mb-3">
+  <h2>Mesas</h2>
+</div>
+<p-card>
+  <ng-template #header>
+  </ng-template>
+
+  <div class="flex flex-column gap-2">
+    <div class="flex justify-content-end">
+      <button size="small" pButton label="Agregar Mesa" icon="pi pi-plus" (click)="createTable()" type="button"
+        class="p-button-success"></button>
+    </div>
+    <p-table [value]="tables" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="tableid"
+      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total" [showCurrentPageReport]="true"
+      showGridlines>
+      <ng-template #header>
+        <tr>
+          <th style="width:80px"></th>
+          <th>Número de Mesa</th>
+          <th>Estado</th>
+          <th>Actualizado el</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-table>
+        <tr>
+          <td style="padding: 0.5rem;">
+            <div class="flex gap-1">
+              <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded"
+                (click)="editTable(table)" type="button"></button>
+              <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
+                (click)="deleteTable(table)" type="button"></button>
+            </div>
+          </td>
+          <td>{{table.tablenumber}}</td>
+          <td>
+            <span *ngIf="table.status === 'Libre'; else notAvailable">
+              <p-tag value="Libre" severity="success" />
+            </span>
+            <ng-template #notAvailable>
+              <p-tag value="Ocupada" severity="danger" />
+            </ng-template>
+          </td>
+          <td>{{table.updatedat | date:'dd/MM/yy HH:mm'}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-card>

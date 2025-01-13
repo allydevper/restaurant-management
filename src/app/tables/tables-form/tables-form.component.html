@@ -1,0 +1,43 @@
+<div class="flex justify-content-between mb-3">
+  <h2>{{ isEditMode ? 'Editar Mesa' : 'Crear Mesa' }}</h2>
+</div>
+
+<p-card>
+  <ng-template #header></ng-template>
+
+  <div class="flex justify-content-end mb-4">
+    <div class="flex gap-1">
+      <button pButton size="small" label="{{ isEditMode ? 'Actualizar' : 'Crear' }}" icon="pi pi-save" type="button"
+        (click)="onSubmit()" class="p-button-success"></button>
+      <button pButton size="small" label="Atrás" icon="pi pi-arrow-left" (click)="goBack()" type="button"
+        class="p-button-secondary"></button>
+    </div>
+  </div>
+
+  <form [formGroup]="tableForm" class="p-fluid grid gap-1">
+    <div class="col-12 xl:col-4 lg:col-6 md:col-12 sm:col-12">
+      <div class="field flex flex-column gap-1">
+        <div class="flex align-items-center gap-2">
+          <label for="tablenumber" class="block text-right" style="width: 120px;">Número de Mesa<span
+              class="required">*</span></label>
+          <input type="text" pInputText formControlName="tablenumber" class="w-full" />
+        </div>
+        <p-message size="small"
+          *ngIf="tableForm.get('tablenumber')?.hasError('required') && tableForm.get('tablenumber')?.touched"
+          severity="error" text="Número de mesa es requerido."></p-message>
+      </div>
+
+      <div class="field flex flex-column gap-1">
+        <div class="flex align-items-center gap-2">
+          <label for="status" class="block text-right" style="width: 120px;">Estado<span
+              class="required">*</span></label>
+          <p-select [options]="statusOptions" formControlName="status" optionLabel="value" optionValue="label"
+            class="w-full"></p-select>
+        </div>
+        <p-message size="small"
+          *ngIf="tableForm.get('status')?.hasError('required') && tableForm.get('status')?.touched" severity="error"
+          text="Estado es requerido."></p-message>
+      </div>
+    </div>
+  </form>
+</p-card>
