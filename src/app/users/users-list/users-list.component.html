@@ -16,7 +16,7 @@
       <ng-template #header>
         <tr>
           <th style="width:80px"></th>
-          <th>Nombre de Usuario</th>
+          <th>Usuario</th>
           <th>Rol</th>
           <th>Creación</th>
         </tr>
@@ -33,7 +33,7 @@
           </td>
           <td>{{user.username}}</td>
           <td>{{user.role}}</td>
-          <td>{{user.createdAt | date:'dd/MM/yy'}}</td>
+          <td>{{user.createdat | date:'dd/MM/yy'}}</td>
         </tr>
       </ng-template>
     </p-table>
