@@ -44,8 +44,8 @@ export class TablesFormComponent implements OnInit {
       this.tablesService.getTableById(tableId).subscribe((response) => {
         if (!response.error) {
           this.tableForm.patchValue({
-            tablenumber: response.data.tablenumber,
-            status: response.data.status
+            tablenumber: response?.data?.tablenumber,
+            status: response?.data?.status
           });
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });

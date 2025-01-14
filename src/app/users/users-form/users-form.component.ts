@@ -46,9 +46,9 @@ export class UsersFormComponent implements OnInit {
       this.usersService.getUserById(userId).subscribe((response) => {
         if (!response.error) {
           this.userForm.patchValue({
-            username: response.data.username,
-            passwordhash: response.data.passwordhash,
-            role: response.data.role
+            username: response?.data?.username,
+            passwordhash: response?.data?.passwordhash,
+            role: response?.data?.role
           });
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });

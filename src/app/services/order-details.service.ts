@@ -13,23 +13,23 @@ export class OrderDetailsService {
 
   constructor(private http: HttpClient) { }
 
-  createOrderDetail(orderDetail: any): Observable<any> {
-    return this.http.post(this.apiUrl, orderDetail);
+  createOrderDetail(orderDetail: OrderDetail): Observable<{ error?: ErrorResponse }> {
+    return this.http.post<{ error?: ErrorResponse }>(this.apiUrl, orderDetail);
   }
 
-  getOrderDetails(): Observable<{ data: OrderDetail[]; error: ErrorResponse }> {
-    return this.http.get<{ data: OrderDetail[]; error: ErrorResponse }>(this.apiUrl);
+  getOrderDetails(): Observable<{ data: OrderDetail[]; error?: ErrorResponse }> {
+    return this.http.get<{ data: OrderDetail[]; error?: ErrorResponse }>(this.apiUrl);
   }
 
-  getOrderDetailById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  getOrderDetailById(id: string): Observable<{ data?: OrderDetail; error?: ErrorResponse }> {
+    return this.http.get<{ data?: OrderDetail; error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }
 
-  updateOrderDetail(id: string, orderDetail: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, orderDetail);
+  updateOrderDetail(id: string, orderDetail: OrderDetail): Observable<{ error?: ErrorResponse }> {
+    return this.http.put<{ error?: ErrorResponse }>(`${this.apiUrl}/${id}`, orderDetail);
   }
 
-  deleteOrderDetail(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteOrderDetail(id: string): Observable<{ error?: ErrorResponse }> {
+    return this.http.delete<{ error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }
 }

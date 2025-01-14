@@ -13,23 +13,23 @@ export class DishesService {
 
   constructor(private http: HttpClient) { }
 
-  createDish(dish: any): Observable<any> {
-    return this.http.post(this.apiUrl, dish);
+  createDish(dish: Dish): Observable<{ error?: ErrorResponse }> {
+    return this.http.post<{ error?: ErrorResponse }>(this.apiUrl, dish);
   }
 
-  getDishes(): Observable<{ data: Dish[]; error: ErrorResponse }> {
-    return this.http.get<{ data: Dish[]; error: ErrorResponse }>(this.apiUrl);
+  getDishes(): Observable<{ data: Dish[]; error?: ErrorResponse }> {
+    return this.http.get<{ data: Dish[]; error?: ErrorResponse }>(this.apiUrl);
   }
 
-  getDishesById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  getDishesById(id: string): Observable<{ data?: Dish; error?: ErrorResponse }> {
+    return this.http.get<{ data?: Dish; error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }
 
-  updateDish(id: string, dish: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, dish);
+  updateDish(id: string, dish: Dish): Observable<{ error?: ErrorResponse }> {
+    return this.http.put<{ error?: ErrorResponse }>(`${this.apiUrl}/${id}`, dish);
   }
 
-  deleteDish(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteDish(id: string): Observable<{ error?: ErrorResponse }> {
+    return this.http.delete<{ error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }
 }

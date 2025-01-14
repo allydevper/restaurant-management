@@ -13,23 +13,23 @@ export class OrdersService {
 
   constructor(private http: HttpClient) { }
 
-  createOrder(order: any): Observable<any> {
-    return this.http.post(this.apiUrl, order);
+  createOrder(order: Order): Observable<{ error?: ErrorResponse }> {
+    return this.http.post<{ error?: ErrorResponse }>(this.apiUrl, order);
   }
 
-  getOrders(): Observable<{ data: Order[]; error: ErrorResponse }> {
-    return this.http.get<{ data: Order[]; error: ErrorResponse }>(this.apiUrl);
+  getOrders(): Observable<{ data: Order[]; error?: ErrorResponse }> {
+    return this.http.get<{ data: Order[]; error?: ErrorResponse }>(this.apiUrl);
   }
 
-  getOrderById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  getOrderById(id: string): Observable<{ data?: Order; error?: ErrorResponse }> {
+    return this.http.get<{ data?: Order; error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }
 
-  updateOrder(id: string, order: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, order);
+  updateOrder(id: string, order: Order): Observable<{ error?: ErrorResponse }> {
+    return this.http.put<{ error?: ErrorResponse }>(`${this.apiUrl}/${id}`, order);
   }
 
-  deleteOrder(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteOrder(id: string): Observable<{ error?: ErrorResponse }> {
+    return this.http.delete<{ error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }
 }

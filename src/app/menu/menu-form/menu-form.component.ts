@@ -49,10 +49,10 @@ export class MenuFormComponent implements OnInit {
       this.dishesService.getDishesById(dishId!).subscribe((response) => {
         if (!response.error) {
           this.dishForm.patchValue({
-            name: response.data.name,
-            dishescategoryid: response.data.dishescategoryid,
-            price: response.data.price,
-            isavailable: response.data.isavailable
+            name: response?.data?.name,
+            dishescategoryid: response?.data?.dishescategoryid,
+            price: response?.data?.price,
+            isavailable: response?.data?.isavailable
           });
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
