@@ -1,7 +1,7 @@
 export interface User {
     userid?: number;
     username: string;
-    passwordhash: string;
+    password: string;
     role?: string;
     createdat?: Date;
 }

@@ -34,7 +34,7 @@ export class UsersFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute, private usersService: UsersService) {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
-      passwordhash: ['', Validators.required],
+      password: ['', Validators.required],
       role: ['', Validators.required]
     });
   }
@@ -47,7 +47,7 @@ export class UsersFormComponent implements OnInit {
         if (!response.error) {
           this.userForm.patchValue({
             username: response?.data?.username,
-            passwordhash: response?.data?.passwordhash,
+            password: response?.data?.password,
             role: response?.data?.role
           });
         } else {
