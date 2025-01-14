@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { MessageService } from 'primeng/api';
-import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { CommonModule } from '@angular/common';
@@ -14,6 +13,7 @@ import { CardModule } from 'primeng/card';
 import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-form',
@@ -31,7 +31,7 @@ export class UsersFormComponent implements OnInit {
     { label: 'Mesero', value: 'Mesero' }
   ];
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute, private usersService: UsersService) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private route: ActivatedRoute, private usersService: UsersService, private router: Router) {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -43,19 +43,22 @@ export class UsersFormComponent implements OnInit {
     const userId = this.route.snapshot.paramMap.get('id');
     if (userId) {
       this.isEditMode = true;
-      this.usersService.getUserById(userId).subscribe((response) => {
-        if (!response.error) {
-          this.userForm.patchValue({
-            username: response?.data?.username,
-            password: response?.data?.password,
-            role: response?.data?.role
-          });
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+      this.usersService.getUserById(userId).subscribe({
+        next: (response) => {
+          if (!response.error) {
+            this.userForm.patchValue({
+              username: response?.data?.username,
+              password: response?.data?.password,
+              role: response?.data?.role
+            });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+          }
+        },
+        error: (error) => {
+          console.error(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la información del usuario.' });
         }
-      }, (error) => {
-        console.error(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la información del usuario.' });
       });
     }
   }
@@ -64,30 +67,41 @@ export class UsersFormComponent implements OnInit {
     if (this.userForm.valid) {
       const newUser: User = this.userForm.value;
       if (this.isEditMode) {
+
         const userId = this.route.snapshot.paramMap.get('id');
-        this.usersService.updateUser(userId!, newUser).subscribe((response) => {
-          if (!response.error) {
-            this.messageService.add({ severity: 'success', summary: 'Usuario Actualizado', detail: 'El usuario ha sido actualizado correctamente.' });
+
+        this.usersService.updateUser(userId!, newUser).subscribe({
+          next: (response) => {
+            if (!response.error) {
+              this.messageService.add({ severity: 'success', summary: 'Usuario Actualizado', detail: 'El usuario ha sido actualizado correctamente.' });
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+            }
             this.goBack();
-          } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+          },
+          error: (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el usuario.' });
           }
-        }, (error) => {
-          console.error(error);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el usuario.' });
         });
+
       } else {
-        this.usersService.createUser(newUser).subscribe(response => {
-          if (!response.error) {
-            this.messageService.add({ severity: 'success', summary: 'Usuario Creado', detail: 'El usuario ha sido creado correctamente.' });
+
+        this.usersService.createUser(newUser).subscribe({
+          next: (response) => {
+            if (!response.error) {
+              this.messageService.add({ severity: 'success', summary: 'Usuario Creado', detail: 'El usuario ha sido creado correctamente.' });
+            } else {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+            }
             this.goBack();
-          } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+          },
+          error: (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el usuario.' });
           }
-        }, (error) => {
-          console.error(error);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el usuario.' });
         });
+
       }
     } else {
       this.userForm.markAllAsTouched();
@@ -95,6 +109,8 @@ export class UsersFormComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    setTimeout(() => {
+      this.router.navigate(['/users']);
+    }, 1000);
   }
 }
