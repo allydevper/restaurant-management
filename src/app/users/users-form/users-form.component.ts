@@ -109,8 +109,6 @@ export class UsersFormComponent implements OnInit {
   }
 
   goBack() {
-    setTimeout(() => {
-      this.router.navigate(['/users']);
-    }, 1000);
+    this.router.navigate(['/users']);
   }
 }

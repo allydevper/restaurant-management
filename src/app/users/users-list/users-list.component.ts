@@ -32,13 +32,6 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cols = [
-      { field: 'userid', header: 'ID' },
-      { field: 'name', header: 'Nombre' },
-      { field: 'email', header: 'Correo' },
-      { field: 'role', header: 'Rol' }
-    ];
-
     this.usersService.getUsers().subscribe(
       (response) => {
         if (!response.error) {

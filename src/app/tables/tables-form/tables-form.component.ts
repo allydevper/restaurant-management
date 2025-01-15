@@ -11,7 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TablesService } from '../../services/tables.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tables-form',
@@ -30,7 +30,7 @@ export class TablesFormComponent implements OnInit {
     { label: 'En Limpieza', value: 'En Limpieza' }
   ];
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute, private tablesService: TablesService) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private router: Router, private route: ActivatedRoute, private tablesService: TablesService) {
     this.tableForm = this.fb.group({
       tablenumber: [0, [Validators.required, Validators.min(0)]],
       status: ['', Validators.required]
@@ -100,6 +100,6 @@ export class TablesFormComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['/tables']);
   }
 }

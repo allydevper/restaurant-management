@@ -12,7 +12,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DishesService } from '../../services/dishes.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class MenuFormComponent implements OnInit {
   );
   isEditMode: boolean = false;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private location: Location, private route: ActivatedRoute, private dishesService: DishesService) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private router: Router, private route: ActivatedRoute, private dishesService: DishesService) {
     this.dishForm = this.fb.group({
       name: ['', Validators.required],
       dishescategoryid: ['', Validators.required],
@@ -105,6 +105,6 @@ export class MenuFormComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['/menu']);
   }
 }
