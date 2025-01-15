@@ -22,7 +22,6 @@ import { UsersService } from '../../services/users.service';
 })
 export class UsersListComponent implements OnInit {
   users: User[] = [];
-  cols: any[] = [];
 
   constructor(
     private messageService: MessageService,
@@ -32,19 +31,19 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usersService.getUsers().subscribe(
-      (response) => {
+    this.usersService.getUsers().subscribe({
+      next: (response) => {
         if (!response.error) {
           this.users = response.data;
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
       },
-      (error) => {
+      error: (error) => {
         console.error(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los usuarios.' });
       }
-    );
+    });
   }
 
   editUser(user: User) {
@@ -59,20 +58,19 @@ export class UsersListComponent implements OnInit {
       acceptLabel: 'Si',
       rejectLabel: 'No',
       accept: () => {
-        this.usersService.deleteUser(user.userid!.toString()).subscribe(
-          (response) => {
+        this.usersService.deleteUser(user.userid!.toString()).subscribe({
+          next: (response) => {
             if (!response.error) {
-              this.users = this.users.filter(u => u.userid !== user.userid);
               this.messageService.add({ severity: 'success', summary: 'Usuario Eliminado', detail: 'El usuario ha sido eliminado correctamente.' });
-            }
-            else {
+            } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
-          (error) => {
+          error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el usuario.' });
           }
+        }
         );
       }
     });

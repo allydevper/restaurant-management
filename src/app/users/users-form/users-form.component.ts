@@ -74,10 +74,10 @@ export class UsersFormComponent implements OnInit {
           next: (response) => {
             if (!response.error) {
               this.messageService.add({ severity: 'success', summary: 'Usuario Actualizado', detail: 'El usuario ha sido actualizado correctamente.' });
+              this.goBack();
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
-            this.goBack();
           },
           error: (error) => {
             console.error(error);
@@ -91,10 +91,10 @@ export class UsersFormComponent implements OnInit {
           next: (response) => {
             if (!response.error) {
               this.messageService.add({ severity: 'success', summary: 'Usuario Creado', detail: 'El usuario ha sido creado correctamente.' });
+              this.goBack();
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
-            this.goBack();
           },
           error: (error) => {
             console.error(error);
