@@ -32,19 +32,20 @@ export class MenuListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dishesService.getDishes().subscribe(
-      (response) => {
+    this.dishesService.getDishes().subscribe({
+      next: (response) => {
         if (!response.error) {
           this.dishes = response.data;
-        } else {
+        }
+        else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
       },
-      (error) => {
+      error: (error) => {
         console.error(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los platos.' });
       }
-    );
+    });
   }
 
   editDish(dish: Dish) {
@@ -59,21 +60,20 @@ export class MenuListComponent implements OnInit {
       acceptLabel: 'Si',
       rejectLabel: 'No',
       accept: () => {
-        this.dishesService.deleteDish(dish.dishid!.toString()).subscribe(
-          (response) => {
+        this.dishesService.deleteDish(dish.dishid!.toString()).subscribe({
+          next: (response) => {
             if (!response.error) {
               this.dishes = this.dishes.filter(d => d.dishid !== dish.dishid);
               this.messageService.add({ severity: 'success', summary: 'Plato Eliminado', detail: 'El plato ha sido eliminado correctamente.' });
-            }
-            else {
+            } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
-          (error) => {
+          error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el plato.' });
           }
-        );
+        });
       }
     });
   }
