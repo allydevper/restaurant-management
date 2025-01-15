@@ -21,7 +21,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./users-form.component.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, MessageModule],
-  providers: [MessageService]
 })
 export class UsersFormComponent implements OnInit {
   userForm: FormGroup;

@@ -17,7 +17,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-tables-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, MessageModule, InputTextModule, InputNumberModule],
-  providers: [MessageService, ConfirmationService],
   templateUrl: './tables-form.component.html',
   styleUrls: ['./tables-form.component.scss']
 })

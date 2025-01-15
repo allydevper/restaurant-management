@@ -11,6 +11,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -18,7 +19,6 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./users-list.component.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule],
-  providers: [MessageService, ConfirmationService]
 })
 export class UsersListComponent implements OnInit {
   users: User[] = [];
@@ -31,6 +31,21 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // this.messageService.messageObserver.pipe(
+    //   take(1)  // Solo procesa el primer valor emitido
+    // ).subscribe((message) => {
+    //   debugger
+    //   if (message instanceof Array) {
+    //     setTimeout(() => {
+    //       this.messageService.addAll(message);
+    //     }, 0);
+    //   } else {
+    //     setTimeout(() => {
+    //       this.messageService.add(message);
+    //     }, 0);
+    //   }
+    // });
+
     this.usersService.getUsers().subscribe({
       next: (response) => {
         if (!response.error) {
@@ -61,6 +76,7 @@ export class UsersListComponent implements OnInit {
         this.usersService.deleteUser(user.userid!.toString()).subscribe({
           next: (response) => {
             if (!response.error) {
+              this.users = this.users.filter(u => u.userid !== user.userid);
               this.messageService.add({ severity: 'success', summary: 'Usuario Eliminado', detail: 'El usuario ha sido eliminado correctamente.' });
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });

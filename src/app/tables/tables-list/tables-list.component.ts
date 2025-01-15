@@ -19,7 +19,6 @@ import { TagModule } from 'primeng/tag';
   styleUrls: ['./tables-list.component.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule],
-  providers: [MessageService, ConfirmationService]
 })
 export class TablesListComponent implements OnInit {
   tables: Table[] = [];

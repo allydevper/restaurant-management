@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Dish } from '../../models/dish.model';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { CheckboxModule } from 'primeng/checkbox';
-import { Location, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -19,7 +19,6 @@ import { DishesService } from '../../services/dishes.service';
   selector: 'app-menu-form',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, CheckboxModule, ButtonModule, MessageModule, ToastModule, ConfirmDialogModule, CardModule, InputNumberModule, InputTextModule],
-  providers: [MessageService, ConfirmationService],
   templateUrl: './menu-form.component.html',
   styleUrls: ['./menu-form.component.scss']
 })

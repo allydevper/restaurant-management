@@ -18,8 +18,7 @@ import { TagModule } from 'primeng/tag';
   templateUrl: './menu-list.component.html',
   styleUrls: ['./menu-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule],
-  providers: [MessageService, ConfirmationService]
+  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule]
 })
 export class MenuListComponent implements OnInit {
   dishes: Dish[] = [];
