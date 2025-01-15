@@ -32,19 +32,19 @@ export class TablesListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tablesService.getTables().subscribe(
-      (response) => {
+    this.tablesService.getTables().subscribe({
+      next: (response) => {
         if (!response.error) {
           this.tables = response.data;
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
       },
-      (error) => {
+      error: (error) => {
         console.error(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar las mesas.' });
       }
-    );
+    });
   }
 
   editTable(table: Table) {
@@ -59,21 +59,20 @@ export class TablesListComponent implements OnInit {
       acceptLabel: 'Si',
       rejectLabel: 'No',
       accept: () => {
-        this.tablesService.deleteTable(table.tableid!.toString()).subscribe(
-          (response) => {
+        this.tablesService.deleteTable(table.tableid!.toString()).subscribe({
+          next: (response) => {
             if (!response.error) {
               this.tables = this.tables.filter(t => t.tableid !== table.tableid);
               this.messageService.add({ severity: 'success', summary: 'Mesa Eliminada', detail: 'La mesa ha sido eliminada correctamente.' });
-            }
-            else {
+            } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
-          (error) => {
+          error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar la mesa.' });
           }
-        );
+        });
       }
     });
   }

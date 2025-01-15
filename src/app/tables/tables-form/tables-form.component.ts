@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Location, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CardModule } from 'primeng/card';
@@ -41,14 +41,20 @@ export class TablesFormComponent implements OnInit {
     const tableId = this.route.snapshot.paramMap.get('id');
     if (tableId) {
       this.isEditMode = true;
-      this.tablesService.getTableById(tableId).subscribe((response) => {
-        if (!response.error) {
-          this.tableForm.patchValue({
-            tablenumber: response?.data?.tablenumber,
-            status: response?.data?.status
-          });
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+      this.tablesService.getTableById(tableId).subscribe({
+        next: (response) => {
+          if (!response.error) {
+            this.tableForm.patchValue({
+              tablenumber: response?.data?.tablenumber,
+              status: response?.data?.status
+            });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+          }
+        },
+        error: (error) => {
+          console.error(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la información de la mesa.' });
         }
       });
     }
@@ -61,8 +67,8 @@ export class TablesFormComponent implements OnInit {
         const tableId = this.route.snapshot.paramMap.get('id');
         newTable.updatedat = new Date();
         console.log(newTable);
-        this.tablesService.updateTable(tableId!, newTable).subscribe(
-          (response) => {
+        this.tablesService.updateTable(tableId!, newTable).subscribe({
+          next: (response) => {
             if (!response.error) {
               this.messageService.add({ severity: 'success', summary: 'Mesa Actualizada', detail: 'La mesa ha sido actualizada correctamente.' });
               this.goBack();
@@ -70,29 +76,28 @@ export class TablesFormComponent implements OnInit {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
-          (error) => {
+          error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar la mesa.' });
           }
-        );
+        });
       } else {
         console.log(newTable);
         debugger
-        this.tablesService.createTable(newTable).subscribe(
-          (response) => {
+        this.tablesService.createTable(newTable).subscribe({
+          next: (response) => {
             if (!response.error) {
-              console.log(response);
               this.messageService.add({ severity: 'success', summary: 'Mesa Creada', detail: 'La mesa ha sido creada correctamente.' });
               this.goBack();
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
             }
           },
-          (error) => {
+          error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear la mesa.' });
           }
-        );
+        });
       }
     } else {
       this.tableForm.markAllAsTouched();
