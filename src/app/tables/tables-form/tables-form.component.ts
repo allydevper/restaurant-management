@@ -12,6 +12,7 @@ import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TablesService } from '../../services/tables.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
   selector: 'app-tables-form',
@@ -29,7 +30,13 @@ export class TablesFormComponent implements OnInit {
     { label: 'En Limpieza', value: 'En Limpieza' }
   ];
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private router: Router, private route: ActivatedRoute, private tablesService: TablesService) {
+  constructor(private fb: FormBuilder,
+    private messageService: MessageService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private tablesService: TablesService,
+    private sharedMessageService: SharedMessageService) {
+
     this.tableForm = this.fb.group({
       tablenumber: [0, [Validators.required, Validators.min(0)]],
       status: ['', Validators.required]
@@ -69,7 +76,7 @@ export class TablesFormComponent implements OnInit {
         this.tablesService.updateTable(tableId!, newTable).subscribe({
           next: (response) => {
             if (!response.error) {
-              this.messageService.add({ severity: 'success', summary: 'Mesa Actualizada', detail: 'La mesa ha sido actualizada correctamente.' });
+              this.sharedMessageService.add({ severity: 'success', summary: 'Mesa Actualizada', detail: 'La mesa ha sido actualizada correctamente.' });
               this.goBack();
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
@@ -86,7 +93,7 @@ export class TablesFormComponent implements OnInit {
         this.tablesService.createTable(newTable).subscribe({
           next: (response) => {
             if (!response.error) {
-              this.messageService.add({ severity: 'success', summary: 'Mesa Creada', detail: 'La mesa ha sido creada correctamente.' });
+              this.sharedMessageService.add({ severity: 'success', summary: 'Mesa Creada', detail: 'La mesa ha sido creada correctamente.' });
               this.goBack();
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });

@@ -12,6 +12,7 @@ import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
 import { DishesService } from '../../services/dishes.service';
 import { TagModule } from 'primeng/tag';
+import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -27,10 +28,18 @@ export class MenuListComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private dishesService: DishesService
+    private dishesService: DishesService,
+    private sharedMessageService: SharedMessageService
   ) { }
 
   ngOnInit() {
+    const sharedMessage = this.sharedMessageService.show();
+    if (sharedMessage) {
+      setTimeout(() => {
+        this.messageService.add(sharedMessage);
+      }, 0);
+    }
+
     this.dishesService.getDishes().subscribe({
       next: (response) => {
         if (!response.error) {

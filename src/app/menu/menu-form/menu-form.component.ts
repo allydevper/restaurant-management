@@ -14,6 +14,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DishesService } from '../../services/dishes.service';
+import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
   selector: 'app-menu-form',
@@ -32,7 +33,13 @@ export class MenuFormComponent implements OnInit {
   );
   isEditMode: boolean = false;
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private router: Router, private route: ActivatedRoute, private dishesService: DishesService) {
+  constructor(private fb: FormBuilder, 
+    private messageService: MessageService, 
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private dishesService: DishesService,
+    private sharedMessageService: SharedMessageService) {
+      
     this.dishForm = this.fb.group({
       name: ['', Validators.required],
       dishescategoryid: ['', Validators.required],
@@ -75,7 +82,7 @@ export class MenuFormComponent implements OnInit {
         this.dishesService.updateDish(dishId!, newDish).subscribe({
           next: (response) => {
             if (!response.error) {
-              this.messageService.add({ severity: 'success', summary: 'Plato Actualizado', detail: 'El plato ha sido actualizado correctamente.' });
+              this.sharedMessageService.add({ severity: 'success', summary: 'Plato Actualizado', detail: 'El plato ha sido actualizado correctamente.' });
               this.goBack();
             }
             else {
@@ -92,7 +99,7 @@ export class MenuFormComponent implements OnInit {
         this.dishesService.createDish(newDish).subscribe({
           next: (response) => {
             if (!response.error) {
-              this.messageService.add({ severity: 'success', summary: 'Plato Creado', detail: 'El plato ha sido creado correctamente.' });
+              this.sharedMessageService.add({ severity: 'success', summary: 'Plato Creado', detail: 'El plato ha sido creado correctamente.' });
               this.goBack();
             }
             else {

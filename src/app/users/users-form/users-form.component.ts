@@ -31,7 +31,13 @@ export class UsersFormComponent implements OnInit {
     { label: 'Mesero', value: 'Mesero' }
   ];
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private route: ActivatedRoute, private usersService: UsersService, private router: Router, private sharedMessageService: SharedMessageService) {
+  constructor(private fb: FormBuilder,
+    private messageService: MessageService,
+    private route: ActivatedRoute,
+    private usersService: UsersService,
+    private router: Router,
+    private sharedMessageService: SharedMessageService) {
+
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
