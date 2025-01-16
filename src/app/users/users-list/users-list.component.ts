@@ -11,14 +11,14 @@ import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
-import { take } from 'rxjs';
+import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule],
+  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule]
 })
 export class UsersListComponent implements OnInit {
   users: User[] = [];
@@ -27,24 +27,17 @@ export class UsersListComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private sharedMessageService: SharedMessageService
   ) { }
 
   ngOnInit() {
-    // this.messageService.messageObserver.pipe(
-    //   take(1)  // Solo procesa el primer valor emitido
-    // ).subscribe((message) => {
-    //   debugger
-    //   if (message instanceof Array) {
-    //     setTimeout(() => {
-    //       this.messageService.addAll(message);
-    //     }, 0);
-    //   } else {
-    //     setTimeout(() => {
-    //       this.messageService.add(message);
-    //     }, 0);
-    //   }
-    // });
+    const sharedMessage = this.sharedMessageService.show();
+    if (sharedMessage) {
+      setTimeout(() => {
+        this.messageService.add(sharedMessage);
+      }, 0);
+    }
 
     this.usersService.getUsers().subscribe({
       next: (response) => {

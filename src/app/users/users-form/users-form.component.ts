@@ -14,13 +14,14 @@ import { MessageModule } from 'primeng/message';
 import { SelectModule } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
+import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
   selector: 'app-users-form',
   templateUrl: './users-form.component.html',
   styleUrls: ['./users-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, MessageModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, MessageModule]
 })
 export class UsersFormComponent implements OnInit {
   userForm: FormGroup;
@@ -30,7 +31,7 @@ export class UsersFormComponent implements OnInit {
     { label: 'Mesero', value: 'Mesero' }
   ];
 
-  constructor(private fb: FormBuilder, private messageService: MessageService, private route: ActivatedRoute, private usersService: UsersService, private router: Router) {
+  constructor(private fb: FormBuilder, private messageService: MessageService, private route: ActivatedRoute, private usersService: UsersService, private router: Router, private sharedMessageService: SharedMessageService) {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -72,7 +73,7 @@ export class UsersFormComponent implements OnInit {
         this.usersService.updateUser(userId!, newUser).subscribe({
           next: (response) => {
             if (!response.error) {
-              this.messageService.add({ severity: 'success', summary: 'Usuario Actualizado', detail: 'El usuario ha sido actualizado correctamente.' });
+              this.sharedMessageService.add({ severity: 'success', summary: 'Usuario Actualizado', detail: 'El usuario ha sido actualizado correctamente.' });
               this.goBack();
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
@@ -89,7 +90,7 @@ export class UsersFormComponent implements OnInit {
         this.usersService.createUser(newUser).subscribe({
           next: (response) => {
             if (!response.error) {
-              this.messageService.add({ severity: 'success', summary: 'Usuario Creado', detail: 'El usuario ha sido creado correctamente.' });
+              this.sharedMessageService.add({ severity: 'success', summary: 'Usuario Creado', detail: 'El usuario ha sido creado correctamente.' });
               this.goBack();
             } else {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
