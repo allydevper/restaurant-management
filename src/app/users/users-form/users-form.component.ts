@@ -15,13 +15,14 @@ import { SelectModule } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router } from '@angular/router';
 import { SharedMessageService } from '../../services/shared-message.service';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-users-form',
   templateUrl: './users-form.component.html',
   styleUrls: ['./users-form.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, MessageModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, PasswordModule, MessageModule]
 })
 export class UsersFormComponent implements OnInit {
   userForm: FormGroup;

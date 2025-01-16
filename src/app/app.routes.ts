@@ -6,6 +6,7 @@ import { TablesListComponent } from './tables/tables-list/tables-list.component'
 import { TablesFormComponent } from './tables/tables-form/tables-form.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersFormComponent } from './users/users-form/users-form.component';
+import { LoginComponent } from './users/login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -19,4 +20,5 @@ export const routes: Routes = [
   { path: 'users', component: UsersListComponent },
   { path: 'users/create', component: UsersFormComponent },
   { path: 'users/edit/:id', component: UsersFormComponent },
+  { path: 'login', component: LoginComponent },
 ];
