@@ -7,18 +7,33 @@ import { TablesFormComponent } from './tables/tables-form/tables-form.component'
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { UsersFormComponent } from './users/users-form/users-form.component';
 import { LoginComponent } from './users/login/login.component';
+import { MainLayoutComponent } from './layout/main-layout.component';
+import { LoginLayoutComponent } from './layout/login-layout.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'menu', component: MenuListComponent },
-  { path: 'menu/create', component: MenuFormComponent },
-  { path: 'menu/edit/:id', component: MenuFormComponent },
-  { path: 'tables', component: TablesListComponent }, 
-  { path: 'tables/create', component: TablesFormComponent }, 
-  { path: 'tables/edit/:id', component: TablesFormComponent }, 
-  { path: 'users', component: UsersListComponent },
-  { path: 'users/create', component: UsersFormComponent },
-  { path: 'users/edit/:id', component: UsersFormComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'menu', component: MenuListComponent },
+      { path: 'menu/create', component: MenuFormComponent },
+      { path: 'menu/edit/:id', component: MenuFormComponent },
+      { path: 'tables', component: TablesListComponent },
+      { path: 'tables/create', component: TablesFormComponent },
+      { path: 'tables/edit/:id', component: TablesFormComponent },
+      { path: 'users', component: UsersListComponent },
+      { path: 'users/create', component: UsersFormComponent },
+      { path: 'users/edit/:id', component: UsersFormComponent },
+    ],
+  },
+  {
+    path: 'login',
+    component: LoginLayoutComponent,
+    children: [
+      { path: '', component: LoginComponent },
+    ],
+  },
+  { path: '**', redirectTo: 'login' },
 ];

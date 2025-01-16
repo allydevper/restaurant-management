@@ -10,7 +10,7 @@ import { ButtonModule } from 'primeng/button';
   standalone: true,
   imports: [CommonModule, FormsModule, InputTextModule, PasswordModule, ButtonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   username: string = '';
