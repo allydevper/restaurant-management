@@ -29,7 +29,7 @@ export class LoginComponent {
     private messageService: MessageService,
     private authService: AuthService
   ) {
-    // Si ya está logueado, redirigir al inicio
+
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/']);
     }
@@ -42,6 +42,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
