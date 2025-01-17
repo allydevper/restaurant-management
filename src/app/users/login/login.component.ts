@@ -9,6 +9,7 @@ import { UsersService } from '../../services/users.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ import { MessageService } from 'primeng/api';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private usersService: UsersService, private messageService: MessageService) {
+  constructor(private fb: FormBuilder, private router: Router,private usersService: UsersService, private messageService: MessageService) {
 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -36,6 +37,7 @@ export class LoginComponent {
       next: (response) => {
         console.log(response);
         if (!response.error) {
+          this.router.navigate(['/'])
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
         }
