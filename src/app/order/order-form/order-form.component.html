@@ -1,0 +1,55 @@
+<div class="flex justify-content-between mb-3">
+  <h2>{{ isEditMode ? 'Editar Pedido' : 'Crear Pedido' }}</h2>
+</div>
+
+<p-card>
+  <ng-template #header></ng-template>
+
+  <div class="flex justify-content-end mb-4">
+    <div class="flex gap-1">
+      <button pButton size="small" label="{{ isEditMode ? 'Actualizar' : 'Crear' }}" icon="pi pi-save" type="button"
+        (click)="onSubmit()" class="p-button-success"></button>
+      <button pButton size="small" label="Atrás" icon="pi pi-arrow-left" (click)="goBack()" type="button"
+        class="p-button-secondary"></button>
+    </div>
+  </div>
+
+  <form [formGroup]="orderForm" class="p-fluid grid gap-1">
+    <div class="col-12 xl:col-4 lg:col-6 md:col-12 sm:col-12">
+      <div class="field flex flex-column gap-1">
+        <div class="flex align-items-center gap-2">
+          <label for="tableid" class="block text-right" style="width: 120px;">Mesa<span class="required">*</span></label>
+          <input type="text" pInputText formControlName="tableid" class="w-full" />
+        </div>
+        <p-message size="small" *ngIf="orderForm.get('tableid')?.hasError('required') && orderForm.get('tableid')?.touched"
+          severity="error" text="Mesa es requerida."></p-message>
+      </div>
+
+      <div class="field flex flex-column gap-1">
+        <div class="flex align-items-center gap-2">
+          <label for="status" class="block text-right" style="width: 120px;">Estado<span class="required">*</span></label>
+          <p-select [options]="['en preparación', 'servido']" formControlName="status" class="w-full"></p-select>
+        </div>
+        <p-message size="small"
+          *ngIf="orderForm.get('status')?.hasError('required') && orderForm.get('status')?.touched"
+          severity="error" text="Estado es requerido."></p-message>
+      </div>
+
+      <div class="field flex flex-column gap-1">
+        <div class="flex align-items-center gap-2">
+          <label for="total" class="block text-right" style="width: 120px;">Total<span
+              class="required">*</span></label>
+          <p-inputNumber id="total" formControlName="total" [mode]="'decimal'" [min]="0" [minFractionDigits]="2"
+            [maxFractionDigits]="2" [useGrouping]="false" [showButtons]="true" class="w-full">
+          </p-inputNumber>
+        </div>
+        <p-message size="small"
+          *ngIf="(orderForm.get('total')?.hasError('required') || orderForm.get('total')?.hasError('min')) && orderForm.get('total')?.touched"
+          severity="error" text="El total debe ser mayor o igual a 0."></p-message>
+      </div>
+    </div>
+  </form>
+
+</p-card>
+
+<p-toast></p-toast>

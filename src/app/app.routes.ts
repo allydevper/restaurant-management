@@ -10,6 +10,8 @@ import { LoginComponent } from './users/login/login.component';
 import { MainLayoutComponent } from './layout/main-layout.component';
 import { LoginLayoutComponent } from './layout/login-layout.component';
 import { AuthGuard } from './auth.guard';
+import { OrderListComponent } from './order/order-list/order-list.component';
+import { OrderFormComponent } from './order/order-form/order-form.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +29,9 @@ export const routes: Routes = [
       { path: 'users', component: UsersListComponent, canActivate: [AuthGuard] },
       { path: 'users/create', component: UsersFormComponent, canActivate: [AuthGuard] },
       { path: 'users/edit/:id', component: UsersFormComponent, canActivate: [AuthGuard] },
+      { path: 'order', component: OrderListComponent, canActivate: [AuthGuard] },
+      { path: 'order/create', component: OrderFormComponent, canActivate: [AuthGuard] },
+      { path: 'order/edit/:id', component: OrderFormComponent, canActivate: [AuthGuard] },
     ],
   },
   {
