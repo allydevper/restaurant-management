@@ -32,4 +32,12 @@ export class OrdersService {
   deleteOrder(id: string): Observable<{ error?: ErrorResponse }> {
     return this.http.delete<{ error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }
+
+  createOrderWithDetails(order: Order): Observable<{ error?: ErrorResponse }> {
+    return this.http.post<{ error?: ErrorResponse }>(`${this.apiUrl}/details`, order);
+  }
+
+  updateOrderWithDetails(order: Order): Observable<{ error?: ErrorResponse }> {
+    return this.http.put<{ error?: ErrorResponse }>(`${this.apiUrl}/details`, order);
+  }
 }

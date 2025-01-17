@@ -51,10 +51,9 @@ export class OrderFormComponent implements OnInit {
 
         this.orderForm = this.fb.group({
             tableid: ['', Validators.required],
-            comments: [''],
             status: ['Pendiente', Validators.required],
             total: [0, [Validators.required, Validators.min(0)]],
-            orderDetails: this.fb.array([])
+            details: this.fb.array([])
         });
     }
 
@@ -110,8 +109,8 @@ export class OrderFormComponent implements OnInit {
         });
     }
 
-    get orderDetails(): FormArray {
-        return this.orderForm.get('orderDetails') as FormArray;
+    get details(): FormArray {
+        return this.orderForm.get('details') as FormArray;
     }
 
     addOrderDetail() {
@@ -120,17 +119,16 @@ export class OrderFormComponent implements OnInit {
             quantity: [1, [Validators.required, Validators.min(1)]],
             subtotal: [0, [Validators.required, Validators.min(0)]]
         });
-        this.orderDetails.push(orderDetailForm);
+        this.details.push(orderDetailForm);
     }
 
     removeOrderDetail(index: number) {
-        this.orderDetails.removeAt(index);
+        this.details.removeAt(index);
         this.updateTotal();
     }
 
     updateSubtotal(index: number) {
-        debugger;
-        const detail = this.orderDetails.at(index);
+        const detail = this.details.at(index);
         const dishId = detail.get('dishid')?.value;
         const quantity = detail.get('quantity')?.value;
 
@@ -144,7 +142,7 @@ export class OrderFormComponent implements OnInit {
     }
 
     updateTotal() {
-        const total = this.orderDetails.controls.reduce((acc, detail) => acc + detail.get('subtotal')?.value, 0);
+        const total = this.details.controls.reduce((acc, detail) => acc + detail.get('subtotal')?.value, 0);
         this.orderForm.get('total')?.setValue(total);
     }
 
@@ -152,9 +150,10 @@ export class OrderFormComponent implements OnInit {
         if (this.orderForm.valid) {
             const newOrder: Order = this.orderForm.value;
             newOrder.userid = this.authService.currentUserValue?.userid;
+            console.log(newOrder);
             if (this.isEditMode) {
                 const orderId = this.route.snapshot.paramMap.get('id');
-                this.ordersService.updateOrder(orderId!, newOrder).subscribe({
+                this.ordersService.updateOrderWithDetails(newOrder).subscribe({
                     next: (response) => {
                         if (!response.error) {
                             this.sharedMessageService.add({ severity: 'success', summary: 'Pedido Actualizado', detail: 'El pedido ha sido actualizado correctamente.' });
@@ -170,7 +169,7 @@ export class OrderFormComponent implements OnInit {
                     }
                 });
             } else {
-                this.ordersService.createOrder(newOrder).subscribe({
+                this.ordersService.createOrderWithDetails(newOrder).subscribe({
                     next: (response) => {
                         if (!response.error) {
                             this.sharedMessageService.add({ severity: 'success', summary: 'Pedido Creado', detail: 'El pedido ha sido creado correctamente.' });

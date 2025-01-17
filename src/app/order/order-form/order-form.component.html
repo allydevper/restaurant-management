@@ -63,7 +63,7 @@
                         icon="pi pi-plus" (click)="addOrderDetail()"></button>
                 </div>
             </div>
-            <div formArrayName="orderDetails" *ngFor="let detail of orderDetails.controls; let i = index" class="mb-3">
+            <div formArrayName="details" *ngFor="let detail of details.controls; let i = index" class="mb-3">
                 <div [formGroupName]="i" class="p-fluid grid gap-2 align-items-center">
                     <div class="field col-12 md:col-4 sm:col-12">
                         <label for="dishid" class="block">Plato<span class="required">*</span></label>
