@@ -1,17 +1,18 @@
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-  <div class="login-container">
-    <h2>Login</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<div class="flex justify-content-center align-items-center h-screen">
+  <p-card>
+    <ng-template #header></ng-template>
+    <h2 class="text-center">Gestion de Restaurantes</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-5">
       <div class="p-field">
         <label for="username">Usuario:</label>
-        <input pInputText type="text" formControlName="username" name="username" required>
+        <input pInputText type="text" formControlName="username" name="username" class="w-full" required>
       </div>
       <div class="p-field">
         <label for="password">Contraseña:</label>
         <p-password formControlName="password" promptLabel="Elija una Contraseña" weakLabel="Muy débil"
           mediumLabel="Media" strongLabel="Fuerte" class="w-full" styleClass="w-full" inputStyleClass="w-full" />
       </div>
-      <button pButton type="submit" label="Login" class="p-button-success"></button>
+      <button pButton type="submit" label="Login" class="p-button-success w-full"></button>
     </form>
-  </div>
+  </p-card>
 </div>
