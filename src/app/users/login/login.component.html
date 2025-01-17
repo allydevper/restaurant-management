@@ -2,13 +2,13 @@
   <h2>Login</h2>
   <form (ngSubmit)="onSubmit()">
     <div class="p-field">
-      <label for="username">Username:</label>
+      <label for="username">Usuario:</label>
       <input pInputText type="text" [(ngModel)]="username" name="username" required>
     </div>
     <div class="p-field">
-      <label for="password">Password:</label>
-      <p-password [(ngModel)]="password" promptLabel="Elija una Contraseña" weakLabel="Muy débil" mediumLabel="Media" strongLabel="Fuerte" />
+      <label for="password">Contraseña:</label>
+      <p-password [(ngModel)]="password" promptLabel="Elija una Contraseña" weakLabel="Muy débil" mediumLabel="Media" strongLabel="Fuerte" class="w-full" styleClass="w-full" inputStyleClass="w-full" />
     </div>
-    <button pButton type="submit" label="Login"></button>
+    <button pButton type="submit" label="Login" class="p-button-success"></button>
   </form>
 </div>
