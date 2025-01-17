@@ -174,4 +174,8 @@ export class OrderFormComponent implements OnInit {
     goBack() {
         this.router.navigate(['/order']);
     }
+
+    updateSubtotal(_t68: number) {
+        // throw new Error('Method not implemented.');
+    }
 }

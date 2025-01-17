@@ -63,37 +63,37 @@
                         icon="pi pi-plus" (click)="addOrderDetail()"></button>
                 </div>
             </div>
-            <div formArrayName="orderDetails" *ngFor="let detail of orderDetails.controls; let i = index">
-                <div [formGroupName]="i" class="p-fluid grid gap-1 flex flex-row align-items-center">
-                    <div class="field flex flex-column gap-1">
-                        <label for="dishid" class="block text-right" style="width: 120px;">Plato<span
-                                class="required">*</span></label>
+            <div formArrayName="orderDetails" *ngFor="let detail of orderDetails.controls; let i = index" class="mb-3">
+                <div [formGroupName]="i" class="p-fluid grid gap-3 align-items-center">
+                    <div class="field col-12 md:col-4 sm:col-12">
+                        <label for="dishid" class="block">Plato<span class="required">*</span></label>
                         <p-select [options]="dishes" formControlName="dishid" optionLabel="name" optionValue="dishid"
                             class="w-full"></p-select>
                         <p-message size="small"
                             *ngIf="detail.get('dishid')?.hasError('required') && detail.get('dishid')?.touched"
                             severity="error" text="Plato es requerido."></p-message>
                     </div>
-                    <div class="field flex flex-column gap-1">
-                        <label for="quantity" class="block text-right" style="width: 120px;">Cantidad<span
-                                class="required">*</span></label>
-                        <p-inputNumber formControlName="quantity" [min]="1" [showButtons]="true"
-                            class="w-full"></p-inputNumber>
+                    <div class="field col-12 md:col-3 sm:col-12">
+                        <label for="quantity" class="block">Cantidad<span class="required">*</span></label>
+                        <p-inputNumber formControlName="quantity" (onChange)="updateSubtotal(i)" [mode]="'decimal'"
+                            [min]="0" [minFractionDigits]="2" [maxFractionDigits]="2" [useGrouping]="false"
+                            [showButtons]="true" inputStyleClass="w-full" class="w-full"></p-inputNumber>
                         <p-message size="small"
                             *ngIf="detail.get('quantity')?.hasError('required') && detail.get('quantity')?.touched"
                             severity="error" text="Cantidad es requerida."></p-message>
                     </div>
-                    <div class="field flex flex-column gap-1">
-                        <label for="subtotal" class="block text-right" style="width: 120px;">Subtotal<span
-                                class="required">*</span></label>
-                        <p-inputNumber formControlName="subtotal" [min]="0" [showButtons]="true"
-                            class="w-full"></p-inputNumber>
+                    <div class="field col-12 md:col-3 sm:col-12">
+                        <label for="subtotal" class="block">Subtotal<span class="required">*</span></label>
+                        <p-inputNumber formControlName="subtotal" [min]="0" [showButtons]="true" [readonly]="true"
+                            inputStyleClass="w-full" class="w-full"></p-inputNumber>
                         <p-message size="small"
                             *ngIf="detail.get('subtotal')?.hasError('required') && detail.get('subtotal')?.touched"
                             severity="error" text="Subtotal es requerido."></p-message>
                     </div>
-                    <button pButton type="button" icon="pi pi-trash" class="p-button-danger"
-                        (click)="removeOrderDetail(i)"></button>
+                    <div class="flex justify-content-center">
+                        <button pButton type="button" icon="pi pi-trash" class="p-button-danger"
+                            (click)="removeOrderDetail(i)"></button>
+                    </div>
                 </div>
             </div>
         </div>
