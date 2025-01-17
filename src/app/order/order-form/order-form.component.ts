@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { Order } from '../../models/order.model';
+import { OrderDetail } from '../../models/orderdetail.model';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -18,6 +19,8 @@ import { SharedMessageService } from '../../services/shared-message.service';
 import { TablesService } from '../../services/tables.service';
 import { Table } from '../../models/table.model';
 import { AuthService } from '../../services/auth.service';
+import { DishesService } from '../../services/dishes.service';
+import { Dish } from '../../models/dish.model';
 
 @Component({
     selector: 'app-order-form',
@@ -30,6 +33,7 @@ export class OrderFormComponent implements OnInit {
     orderForm: FormGroup;
     isEditMode: boolean = false;
     tables: Table[] = [];
+    dishes: Dish[] = [];
     status = [
         { label: 'Pendiente', value: 'Pendiente' },
         { label: 'En Preparación', value: 'En Preparación' },
@@ -43,12 +47,15 @@ export class OrderFormComponent implements OnInit {
         private authService: AuthService,
         private ordersService: OrdersService,
         private sharedMessageService: SharedMessageService,
-        private tablesService: TablesService) {
+        private tablesService: TablesService,
+        private dishesService: DishesService) {
 
         this.orderForm = this.fb.group({
             tableid: ['', Validators.required],
+            comments: [''],
             status: ['Pendiente', Validators.required],
-            total: [0, [Validators.required, Validators.min(0)]]
+            total: [0, [Validators.required, Validators.min(0)]],
+            orderDetails: this.fb.array([])
         });
     }
 
@@ -88,6 +95,37 @@ export class OrderFormComponent implements OnInit {
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar las mesas.' });
             }
         });
+
+        this.dishesService.getDishes().subscribe({
+            next: (response) => {
+                if (!response.error) {
+                    this.dishes = response.data;
+                } else {
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+                }
+            },
+            error: (error) => {
+                console.error(error);
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los platos.' });
+            }
+        });
+    }
+
+    get orderDetails(): FormArray {
+        return this.orderForm.get('orderDetails') as FormArray;
+    }
+
+    addOrderDetail() {
+        const orderDetailForm = this.fb.group({
+            dishid: ['', Validators.required],
+            quantity: [1, [Validators.required, Validators.min(1)]],
+            subtotal: [0, [Validators.required, Validators.min(0)]]
+        });
+        this.orderDetails.push(orderDetailForm);
+    }
+
+    removeOrderDetail(index: number) {
+        this.orderDetails.removeAt(index);
     }
 
     onSubmit() {
