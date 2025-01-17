@@ -17,6 +17,7 @@ import { OrdersService } from '../../services/orders.service';
 import { SharedMessageService } from '../../services/shared-message.service';
 import { TablesService } from '../../services/tables.service';
 import { Table } from '../../models/table.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-order-form',
@@ -29,11 +30,17 @@ export class OrderFormComponent implements OnInit {
     orderForm: FormGroup;
     isEditMode: boolean = false;
     tables: Table[] = [];
+    status = [
+        { label: 'Pendiente', value: 'Pendiente' },
+        { label: 'En Preparación', value: 'En Preparación' },
+        { label: 'Servido', value: 'Servido' }
+    ];
 
     constructor(private fb: FormBuilder,
         private messageService: MessageService,
         private router: Router,
         private route: ActivatedRoute,
+        private authService: AuthService,
         private ordersService: OrdersService,
         private sharedMessageService: SharedMessageService,
         private tablesService: TablesService) {
@@ -41,7 +48,7 @@ export class OrderFormComponent implements OnInit {
         this.orderForm = this.fb.group({
             tableid: ['', Validators.required],
             comments: [''],
-            status: ['en preparación', Validators.required],
+            status: ['Pendiente', Validators.required],
             total: [0, [Validators.required, Validators.min(0)]]
         });
     }
@@ -87,6 +94,7 @@ export class OrderFormComponent implements OnInit {
     onSubmit() {
         if (this.orderForm.valid) {
             const newOrder: Order = this.orderForm.value;
+            newOrder.userid = this.authService.currentUserValue?.userid;
             if (this.isEditMode) {
                 const orderId = this.route.snapshot.paramMap.get('id');
                 this.ordersService.updateOrder(orderId!, newOrder).subscribe({

@@ -28,7 +28,7 @@
       <div class="field flex flex-column gap-1">
         <div class="flex align-items-center gap-2">
           <label for="status" class="block text-right" style="width: 120px;">Estado<span class="required">*</span></label>
-          <p-select [options]="['en preparación', 'servido']" formControlName="status" class="w-full"></p-select>
+          <p-select [options]="status" formControlName="status" class="w-full" optionLabel="label" optionValue="value"></p-select>
         </div>
         <p-message size="small"
           *ngIf="orderForm.get('status')?.hasError('required') && orderForm.get('status')?.touched"
