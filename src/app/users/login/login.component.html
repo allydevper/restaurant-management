@@ -1,14 +1,17 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="onSubmit()">
-    <div class="p-field">
-      <label for="username">Usuario:</label>
-      <input pInputText type="text" [(ngModel)]="username" name="username" required>
-    </div>
-    <div class="p-field">
-      <label for="password">Contraseña:</label>
-      <p-password [(ngModel)]="password" promptLabel="Elija una Contraseña" weakLabel="Muy débil" mediumLabel="Media" strongLabel="Fuerte" class="w-full" styleClass="w-full" inputStyleClass="w-full" />
-    </div>
-    <button pButton type="submit" label="Login" class="p-button-success"></button>
-  </form>
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+  <div class="login-container">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="p-field">
+        <label for="username">Usuario:</label>
+        <input pInputText type="text" formControlName="username" name="username" required>
+      </div>
+      <div class="p-field">
+        <label for="password">Contraseña:</label>
+        <p-password formControlName="password" promptLabel="Elija una Contraseña" weakLabel="Muy débil"
+          mediumLabel="Media" strongLabel="Fuerte" class="w-full" styleClass="w-full" inputStyleClass="w-full" />
+      </div>
+      <button pButton type="submit" label="Login" class="p-button-success"></button>
+    </form>
+  </div>
 </div>

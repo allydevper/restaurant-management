@@ -3,28 +3,28 @@ $spotify-black: #191414;
 $spotify-white: #FFFFFF;
 
 .layout {
-    display: flex;
-  }
-  
-  .sidebar {
-    flex: 0 0 auto; // Tamaño fijo
-    background-color: $spotify-black; // Color de fondo del sidebar
-    height: 100vh; // Altura completa
-    width: 250px;
-  }
-  
-  .main-container {
-    flex: 1; // Ocupa el espacio restante
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .topbar {
-    flex: 0 0 auto; // Tamaño fijo
-    padding: 10px 20px; // Espaciado interno
-  }
-  
-  .content {
-    flex: 1; // Ocupa el espacio restante
-    padding: 20px; // Espaciado interno
-  }
+  display: flex;
+}
+
+.sidebar {
+  flex: 0 0 auto;
+  background-color: $spotify-black;
+  height: 100vh;
+  width: 250px;
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  flex: 0 0 auto;
+  padding: 10px 20px;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
