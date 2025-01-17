@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div formArrayName="orderDetails" *ngFor="let detail of orderDetails.controls; let i = index" class="mb-3">
-                <div [formGroupName]="i" class="p-fluid grid gap-3 align-items-center">
+                <div [formGroupName]="i" class="p-fluid grid gap-2 align-items-center">
                     <div class="field col-12 md:col-4 sm:col-12">
                         <label for="dishid" class="block">Plato<span class="required">*</span></label>
                         <p-select [options]="dishes" formControlName="dishid" optionLabel="name" optionValue="dishid"
@@ -75,7 +75,7 @@
                     </div>
                     <div class="field col-12 md:col-3 sm:col-12">
                         <label for="quantity" class="block">Cantidad<span class="required">*</span></label>
-                        <p-inputNumber formControlName="quantity" (onChange)="updateSubtotal(i)" [min]="0"
+                        <p-inputNumber formControlName="quantity" (onBlur)="updateSubtotal(i)" [min]="1"
                             [showButtons]="true" inputStyleClass="w-full" class="w-full"></p-inputNumber>
                         <p-message size="small"
                             *ngIf="detail.get('quantity')?.hasError('required') && detail.get('quantity')?.touched"
@@ -83,7 +83,7 @@
                     </div>
                     <div class="field col-12 md:col-3 sm:col-12">
                         <label for="subtotal" class="block">Subtotal<span class="required">*</span></label>
-                        <p-inputNumber formControlName="subtotal" (onChange)="updateSubtotal(i)" [mode]="'decimal'"
+                        <p-inputNumber formControlName="subtotal" [mode]="'decimal'"
                             [min]="0" [minFractionDigits]="2" [maxFractionDigits]="2" [useGrouping]="false"
                             [showButtons]="true" inputStyleClass="w-full" class="w-full"></p-inputNumber>
                         <p-message size="small"

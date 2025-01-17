@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { Order } from '../../models/order.model';
-import { OrderDetail } from '../../models/orderdetail.model';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -126,6 +125,27 @@ export class OrderFormComponent implements OnInit {
 
     removeOrderDetail(index: number) {
         this.orderDetails.removeAt(index);
+        this.updateTotal();
+    }
+
+    updateSubtotal(index: number) {
+        debugger;
+        const detail = this.orderDetails.at(index);
+        const dishId = detail.get('dishid')?.value;
+        const quantity = detail.get('quantity')?.value;
+
+        const dish = this.dishes.find(d => d.dishid === dishId);
+        if (dish) {
+            const subtotal = dish.price * quantity;
+            detail.get('subtotal')?.setValue(subtotal);
+        }
+
+        this.updateTotal();
+    }
+
+    updateTotal() {
+        const total = this.orderDetails.controls.reduce((acc, detail) => acc + detail.get('subtotal')?.value, 0);
+        this.orderForm.get('total')?.setValue(total);
     }
 
     onSubmit() {
@@ -173,9 +193,5 @@ export class OrderFormComponent implements OnInit {
 
     goBack() {
         this.router.navigate(['/order']);
-    }
-
-    updateSubtotal(_t68: number) {
-        console.log(_t68);
     }
 }
