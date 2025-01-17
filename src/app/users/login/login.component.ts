@@ -10,6 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,17 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router,private usersService: UsersService, private messageService: MessageService) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private usersService: UsersService,
+    private messageService: MessageService,
+    private authService: AuthService
+  ) {
+    // Si ya está logueado, redirigir al inicio
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/']);
+    }
 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -30,14 +41,18 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
     const username = this.loginForm.get('username')?.value;
     const password = this.loginForm.get('password')?.value;
 
     this.usersService.login(username, password).subscribe({
       next: (response) => {
-        console.log(response);
         if (!response.error) {
-          this.router.navigate(['/'])
+          this.authService.setUser(response.data!);
+          this.router.navigate(['/']);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
         }
