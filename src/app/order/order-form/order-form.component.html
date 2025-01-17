@@ -19,7 +19,7 @@
       <div class="field flex flex-column gap-1">
         <div class="flex align-items-center gap-2">
           <label for="tableid" class="block text-right" style="width: 120px;">Mesa<span class="required">*</span></label>
-          <input type="text" pInputText formControlName="tableid" class="w-full" />
+          <p-select [options]="tables" formControlName="tableid" optionLabel="tablenumber" optionValue="tableid" class="w-full"></p-select>
         </div>
         <p-message size="small" *ngIf="orderForm.get('tableid')?.hasError('required') && orderForm.get('tableid')?.touched"
           severity="error" text="Mesa es requerida."></p-message>

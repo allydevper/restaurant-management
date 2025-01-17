@@ -15,6 +15,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrdersService } from '../../services/orders.service';
 import { SharedMessageService } from '../../services/shared-message.service';
+import { TablesService } from '../../services/tables.service';
+import { Table } from '../../models/table.model';
 
 @Component({
     selector: 'app-order-form',
@@ -26,13 +28,15 @@ import { SharedMessageService } from '../../services/shared-message.service';
 export class OrderFormComponent implements OnInit {
     orderForm: FormGroup;
     isEditMode: boolean = false;
+    tables: Table[] = [];
 
     constructor(private fb: FormBuilder,
         private messageService: MessageService,
         private router: Router,
         private route: ActivatedRoute,
         private ordersService: OrdersService,
-        private sharedMessageService: SharedMessageService) {
+        private sharedMessageService: SharedMessageService,
+        private tablesService: TablesService) {
 
         this.orderForm = this.fb.group({
             tableid: ['', Validators.required],
@@ -64,6 +68,20 @@ export class OrderFormComponent implements OnInit {
                 }
             });
         }
+
+        this.tablesService.getTables().subscribe({
+            next: (response) => {
+                if (!response.error) {
+                    this.tables = response.data;
+                } else {
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
+                }
+            },
+            error: (error) => {
+                console.error(error);
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar las mesas.' });
+            }
+        });
     }
 
     onSubmit() {
