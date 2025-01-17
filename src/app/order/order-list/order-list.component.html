@@ -1,57 +1,58 @@
 <div class="flex justify-content-between mb-3">
-  <h2>Pedidos</h2>
+    <h2>Pedidos</h2>
 </div>
 <p-card>
-  <ng-template #header>
-  </ng-template>
+    <ng-template #header>
+    </ng-template>
 
-  <div class="flex flex-column gap-2">
-    <div class="flex justify-content-end">
-      <button size="small" pButton label="Agregar Pedido" icon="pi pi-plus" (click)="createOrder()" type="button"
-        class="p-button-success"></button>
-    </div>
-    <p-table [value]="orders" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
-      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total" [showCurrentPageReport]="true"
-      showGridlines>
-      <ng-template #header>
-        <tr>
-          <th style="width:80px"></th>
-          <th>Mesa</th>
-          <th>Total</th>
-          <th>Estado</th>
-          <th>Creación</th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-order>
-        <tr>
-          <td style="padding: 0.5rem;">
-            <div class="flex gap-1">
-              <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded"
-                (click)="editOrder(order)" type="button"></button>
-              <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
-                (click)="deleteOrder(order)" type="button"></button>
-            </div>
-          </td>
-          <td>{{order.tables?.tablenumber}}</td>
-          <td>{{order.total | currency:'PEN':'S/.'}}</td>
-          <td>
-            <span *ngIf="order.status === 'Servido'; else notAvailable">
-              <p-tag value="{{order.status}}" severity="success" />
-            </span>
-            <ng-template #notAvailable>
-              <span *ngIf="order.status === 'Pendiente'; else occupied">
-                <p-tag value="{{order.status}}" severity="warn" />
-              </span>
-              <ng-template #occupied>
-                <p-tag value="{{order.status}}" severity="danger" />
-              </ng-template>
+    <div class="flex flex-column gap-2">
+        <div class="flex justify-content-end">
+            <button size="small" pButton label="Agregar Pedido" icon="pi pi-plus" (click)="createOrder()" type="button"
+                class="p-button-success"></button>
+        </div>
+        <p-table [value]="orders" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total"
+            [showCurrentPageReport]="true" showGridlines>
+            <ng-template #header>
+                <tr>
+                    <th style="width:80px"></th>
+                    <th>Mesa</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Creación</th>
+                </tr>
             </ng-template>
-          </td>
-          <td>{{order.createdat | date:'dd/MM/yy HH:mm'}}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+            <ng-template #body let-order>
+                <tr>
+                    <td style="padding: 0.5rem;">
+                        <div class="flex gap-1">
+                            <button size="small" pButton icon="pi pi-file-edit"
+                                class="p-button-success p-button-rounded" (click)="editOrder(order)"
+                                type="button"></button>
+                            <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
+                                (click)="deleteOrder(order)" type="button"></button>
+                        </div>
+                    </td>
+                    <td>{{order.tables?.tablenumber}}</td>
+                    <td>{{order.total | currency:'PEN':'S/.'}}</td>
+                    <td>
+                        <span *ngIf="order.status === 'Servido'; else notAvailable">
+                            <p-tag value="{{order.status}}" severity="warn" />
+                        </span>
+                        <ng-template #notAvailable>
+                            <span *ngIf="order.status === 'Pendiente'; else occupied">
+                                <p-tag value="{{order.status}}" severity="success" />
+                            </span>
+                            <ng-template #occupied>
+                                <p-tag value="{{order.status}}" severity="danger" />
+                            </ng-template>
+                        </ng-template>
+                    </td>
+                    <td>{{order.createdat | date:'dd/MM/yy HH:mm'}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </p-card>
 <p-toast></p-toast>
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
