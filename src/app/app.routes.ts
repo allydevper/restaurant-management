@@ -9,6 +9,7 @@ import { UsersFormComponent } from './users/users-form/users-form.component';
 import { LoginComponent } from './users/login/login.component';
 import { MainLayoutComponent } from './layout/main-layout.component';
 import { LoginLayoutComponent } from './layout/login-layout.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
@@ -16,16 +17,16 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'menu', component: MenuListComponent },
-      { path: 'menu/create', component: MenuFormComponent },
-      { path: 'menu/edit/:id', component: MenuFormComponent },
-      { path: 'tables', component: TablesListComponent },
-      { path: 'tables/create', component: TablesFormComponent },
-      { path: 'tables/edit/:id', component: TablesFormComponent },
-      { path: 'users', component: UsersListComponent },
-      { path: 'users/create', component: UsersFormComponent },
-      { path: 'users/edit/:id', component: UsersFormComponent },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+      { path: 'menu', component: MenuListComponent, canActivate: [AuthGuard] },
+      { path: 'menu/create', component: MenuFormComponent, canActivate: [AuthGuard] },
+      { path: 'menu/edit/:id', component: MenuFormComponent, canActivate: [AuthGuard] },
+      { path: 'tables', component: TablesListComponent, canActivate: [AuthGuard] },
+      { path: 'tables/create', component: TablesFormComponent, canActivate: [AuthGuard] },
+      { path: 'tables/edit/:id', component: TablesFormComponent, canActivate: [AuthGuard] },
+      { path: 'users', component: UsersListComponent, canActivate: [AuthGuard] },
+      { path: 'users/create', component: UsersFormComponent, canActivate: [AuthGuard] },
+      { path: 'users/edit/:id', component: UsersFormComponent, canActivate: [AuthGuard] },
     ],
   },
   {
