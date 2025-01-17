@@ -47,7 +47,6 @@ export class OrderFormComponent implements OnInit {
 
         this.orderForm = this.fb.group({
             tableid: ['', Validators.required],
-            comments: [''],
             status: ['Pendiente', Validators.required],
             total: [0, [Validators.required, Validators.min(0)]]
         });
