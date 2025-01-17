@@ -56,51 +56,44 @@
         </div>
 
         <div class="col-12">
-            <h3>Detalles del Pedido</h3>
-            <button pButton type="button" size="small" class="p-button-success" label="Agregar Detalle"
-                icon="pi pi-plus" (click)="addOrderDetail()"></button>
+            <div class="flex align-items-center mb-4">
+                <h3 class="m-0">Detalles del Pedido</h3>
+                <div class="flex gap-1 ml-2">
+                    <button pButton type="button" size="small" class="p-button-success" label="Agregar Detalle"
+                        icon="pi pi-plus" (click)="addOrderDetail()"></button>
+                </div>
+            </div>
             <div formArrayName="orderDetails" *ngFor="let detail of orderDetails.controls; let i = index">
-                <div [formGroupName]="i" class="p-fluid grid gap-1">
-                    <div class="col-12 xl:col-4 lg:col-6 md:col-12 sm:col-12">
-                        <div class="field flex flex-column gap-1">
-                            <div class="flex align-items-center gap-2">
-                                <label for="dishid" class="block text-right" style="width: 120px;">Plato<span
-                                        class="required">*</span></label>
-                                <p-select [options]="dishes" formControlName="dishid" optionLabel="name"
-                                    optionValue="dishid" class="w-full"></p-select>
-                            </div>
-                            <p-message size="small"
-                                *ngIf="detail.get('dishid')?.hasError('required') && detail.get('dishid')?.touched"
-                                severity="error" text="Plato es requerido."></p-message>
-                        </div>
-
-                        <div class="field flex flex-column gap-1">
-                            <div class="flex align-items-center gap-2">
-                                <label for="quantity" class="block text-right" style="width: 120px;">Cantidad<span
-                                        class="required">*</span></label>
-                                <p-inputNumber formControlName="quantity" [min]="1" [showButtons]="true"
-                                    class="w-full"></p-inputNumber>
-                            </div>
-                            <p-message size="small"
-                                *ngIf="detail.get('quantity')?.hasError('required') && detail.get('quantity')?.touched"
-                                severity="error" text="Cantidad es requerida."></p-message>
-                        </div>
-
-                        <div class="field flex flex-column gap-1">
-                            <div class="flex align-items-center gap-2">
-                                <label for="subtotal" class="block text-right" style="width: 120px;">Subtotal<span
-                                        class="required">*</span></label>
-                                <p-inputNumber formControlName="subtotal" [min]="0" [showButtons]="true"
-                                    class="w-full"></p-inputNumber>
-                            </div>
-                            <p-message size="small"
-                                *ngIf="detail.get('subtotal')?.hasError('required') && detail.get('subtotal')?.touched"
-                                severity="error" text="Subtotal es requerido."></p-message>
-                        </div>
-
-                        <button pButton type="button" icon="pi pi-trash" class="p-button-danger"
-                            (click)="removeOrderDetail(i)"></button>
+                <div [formGroupName]="i" class="p-fluid grid gap-1 flex flex-row align-items-center">
+                    <div class="field flex flex-column gap-1">
+                        <label for="dishid" class="block text-right" style="width: 120px;">Plato<span
+                                class="required">*</span></label>
+                        <p-select [options]="dishes" formControlName="dishid" optionLabel="name" optionValue="dishid"
+                            class="w-full"></p-select>
+                        <p-message size="small"
+                            *ngIf="detail.get('dishid')?.hasError('required') && detail.get('dishid')?.touched"
+                            severity="error" text="Plato es requerido."></p-message>
                     </div>
+                    <div class="field flex flex-column gap-1">
+                        <label for="quantity" class="block text-right" style="width: 120px;">Cantidad<span
+                                class="required">*</span></label>
+                        <p-inputNumber formControlName="quantity" [min]="1" [showButtons]="true"
+                            class="w-full"></p-inputNumber>
+                        <p-message size="small"
+                            *ngIf="detail.get('quantity')?.hasError('required') && detail.get('quantity')?.touched"
+                            severity="error" text="Cantidad es requerida."></p-message>
+                    </div>
+                    <div class="field flex flex-column gap-1">
+                        <label for="subtotal" class="block text-right" style="width: 120px;">Subtotal<span
+                                class="required">*</span></label>
+                        <p-inputNumber formControlName="subtotal" [min]="0" [showButtons]="true"
+                            class="w-full"></p-inputNumber>
+                        <p-message size="small"
+                            *ngIf="detail.get('subtotal')?.hasError('required') && detail.get('subtotal')?.touched"
+                            severity="error" text="Subtotal es requerido."></p-message>
+                    </div>
+                    <button pButton type="button" icon="pi pi-trash" class="p-button-danger"
+                        (click)="removeOrderDetail(i)"></button>
                 </div>
             </div>
         </div>
