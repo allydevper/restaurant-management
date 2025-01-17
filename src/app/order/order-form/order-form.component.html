@@ -68,15 +68,14 @@
                     <div class="field col-12 md:col-4 sm:col-12">
                         <label for="dishid" class="block">Plato<span class="required">*</span></label>
                         <p-select [options]="dishes" formControlName="dishid" optionLabel="name" optionValue="dishid"
-                            class="w-full"></p-select>
+                            class="w-full" (onChange)="updateSubtotal(i)"></p-select>
                         <p-message size="small"
                             *ngIf="detail.get('dishid')?.hasError('required') && detail.get('dishid')?.touched"
                             severity="error" text="Plato es requerido."></p-message>
                     </div>
                     <div class="field col-12 md:col-3 sm:col-12">
                         <label for="quantity" class="block">Cantidad<span class="required">*</span></label>
-                        <p-inputNumber formControlName="quantity" (onChange)="updateSubtotal(i)" [mode]="'decimal'"
-                            [min]="0" [minFractionDigits]="2" [maxFractionDigits]="2" [useGrouping]="false"
+                        <p-inputNumber formControlName="quantity" (onChange)="updateSubtotal(i)" [min]="0"
                             [showButtons]="true" inputStyleClass="w-full" class="w-full"></p-inputNumber>
                         <p-message size="small"
                             *ngIf="detail.get('quantity')?.hasError('required') && detail.get('quantity')?.touched"
@@ -84,8 +83,9 @@
                     </div>
                     <div class="field col-12 md:col-3 sm:col-12">
                         <label for="subtotal" class="block">Subtotal<span class="required">*</span></label>
-                        <p-inputNumber formControlName="subtotal" [min]="0" [showButtons]="true" [readonly]="true"
-                            inputStyleClass="w-full" class="w-full"></p-inputNumber>
+                        <p-inputNumber formControlName="subtotal" (onChange)="updateSubtotal(i)" [mode]="'decimal'"
+                            [min]="0" [minFractionDigits]="2" [maxFractionDigits]="2" [useGrouping]="false"
+                            [showButtons]="true" inputStyleClass="w-full" class="w-full"></p-inputNumber>
                         <p-message size="small"
                             *ngIf="detail.get('subtotal')?.hasError('required') && detail.get('subtotal')?.touched"
                             severity="error" text="Subtotal es requerido."></p-message>

@@ -176,6 +176,6 @@ export class OrderFormComponent implements OnInit {
     }
 
     updateSubtotal(_t68: number) {
-        // throw new Error('Method not implemented.');
+        console.log(_t68);
     }
 }
