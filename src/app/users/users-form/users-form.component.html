@@ -28,7 +28,7 @@
       <div class="field flex flex-column gap-1">
         <div class="flex align-items-center gap-2">
           <label for="password" class="block text-right" style="width: 130px;">Contraseña<span class="required">*</span></label>
-          <input type="password" pPassword formControlName="password" class="w-full" />
+          <p-password formControlName="password" promptLabel="Elija una Contraseña" weakLabel="Muy débil" mediumLabel="Media" strongLabel="Fuerte" class="w-full" styleClass="w-full" inputStyleClass="w-full" />
         </div>
         <p-message size="small" *ngIf="userForm.get('password')?.hasError('required') && userForm.get('password')?.touched"
           severity="error" text="Contraseña es requerida."></p-message>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MessageService, ToastMessageOptions } from 'primeng/api';
+import { ToastMessageOptions } from 'primeng/api';
 
 @Injectable({
     providedIn: 'root',
@@ -12,7 +12,6 @@ export class SharedMessageService {
     }
 
     show(): ToastMessageOptions | null {
-        debugger
         const toastMessageOptions = this.toastMessageOptions;
         this.toastMessageOptions = null;
         return toastMessageOptions;

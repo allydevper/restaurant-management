@@ -3,11 +3,11 @@
   <form (ngSubmit)="onSubmit()">
     <div class="p-field">
       <label for="username">Username:</label>
-      <input pInputText type="text" id="username" [(ngModel)]="username" name="username" required>
+      <input pInputText type="text" [(ngModel)]="username" name="username" required>
     </div>
     <div class="p-field">
       <label for="password">Password:</label>
-      <input pPassword type="password" id="password" [(ngModel)]="password" name="password" required>
+      <p-password [(ngModel)]="password" promptLabel="Elija una Contraseña" weakLabel="Muy débil" mediumLabel="Media" strongLabel="Fuerte" />
     </div>
     <button pButton type="submit" label="Login"></button>
   </form>

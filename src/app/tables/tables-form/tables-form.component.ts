@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -89,7 +89,6 @@ export class TablesFormComponent implements OnInit {
         });
       } else {
         console.log(newTable);
-        debugger
         this.tablesService.createTable(newTable).subscribe({
           next: (response) => {
             if (!response.error) {
