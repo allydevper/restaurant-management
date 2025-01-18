@@ -31,6 +31,7 @@ import { OrderDetail } from '../../models/orderdetail.model';
 })
 export class OrderFormComponent implements OnInit {
     orderForm: FormGroup;
+    detailsFormArray: FormArray;
     isEditMode: boolean = false;
     tables: Table[] = [];
     dishes: Dish[] = [];
@@ -56,6 +57,8 @@ export class OrderFormComponent implements OnInit {
             total: [0, [Validators.required, Validators.min(0)]],
             details: this.fb.array([])
         });
+
+        this.detailsFormArray = this.orderForm.get('details') as FormArray;
     }
 
     ngOnInit() {
@@ -112,18 +115,13 @@ export class OrderFormComponent implements OnInit {
     }
 
     setOrderDetails(details: OrderDetail[]) {
-        const detailsFormArray = this.orderForm.get('details') as FormArray;
         details.forEach(detail => {
-            detailsFormArray.push(this.fb.group({
+            this.detailsFormArray.push(this.fb.group({
                 dishid: [detail.dishid, Validators.required],
                 quantity: [detail.quantity, [Validators.required, Validators.min(1)]],
                 subtotal: [detail.subtotal, [Validators.required, Validators.min(0)]]
             }));
         });
-    }
-
-    get details(): FormArray {
-        return this.orderForm.get('details') as FormArray;
     }
 
     addOrderDetail() {
@@ -132,16 +130,16 @@ export class OrderFormComponent implements OnInit {
             quantity: [1, [Validators.required, Validators.min(1)]],
             subtotal: [0, [Validators.required, Validators.min(0)]]
         });
-        this.details.push(orderDetailForm);
+        this.detailsFormArray.push(orderDetailForm);
     }
 
     removeOrderDetail(index: number) {
-        this.details.removeAt(index);
+        this.detailsFormArray.removeAt(index);
         this.updateTotal();
     }
 
     updateSubtotal(index: number) {
-        const detail = this.details.at(index);
+        const detail = this.detailsFormArray.at(index);
         const dishId = detail.get('dishid')?.value;
         const quantity = detail.get('quantity')?.value;
 
@@ -155,7 +153,7 @@ export class OrderFormComponent implements OnInit {
     }
 
     updateTotal() {
-        const total = this.details.controls.reduce((acc, detail) => acc + detail.get('subtotal')?.value, 0);
+        const total = this.detailsFormArray.controls.reduce((acc, detail) => acc + detail.get('subtotal')?.value, 0);
         this.orderForm.get('total')?.setValue(total);
     }
 
