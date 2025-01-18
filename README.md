@@ -1,6 +1,20 @@
 # GestionRestaurantes
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+This project, **restaurant-management**, is currently at version **0.0.0**. It was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+
+## Available Scripts
+
+In the project directory, you can run:
+
+- **`ng serve`**: Runs the app in development mode. Open [http://localhost:4200](http://localhost:4200) to view it in your browser.
+- **`ng build`**: Builds the app for production to the `dist` folder.
+- **`ng test`**: Launches the test runner in the interactive watch mode.
+
+## Key Dependencies
+
+- **Angular Core**: ^18.1.0
+- **PrimeNG**: ^18.0.2
+- **RxJS**: ~7.8.0
 
 ## Development server
 
