@@ -20,6 +20,7 @@ import { Table } from '../../models/table.model';
 import { AuthService } from '../../services/auth.service';
 import { DishesService } from '../../services/dishes.service';
 import { Dish } from '../../models/dish.model';
+import { OrderDetail } from '../../models/orderdetail.model';
 
 @Component({
     selector: 'app-order-form',
@@ -69,6 +70,7 @@ export class OrderFormComponent implements OnInit {
                             status: response?.data?.status,
                             total: response?.data?.total
                         });
+                        this.setOrderDetails(response?.data?.details || []);
                     } else {
                         this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
                     }
@@ -106,6 +108,17 @@ export class OrderFormComponent implements OnInit {
                 console.error(error);
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los platos.' });
             }
+        });
+    }
+
+    setOrderDetails(details: OrderDetail[]) {
+        const detailsFormArray = this.orderForm.get('details') as FormArray;
+        details.forEach(detail => {
+            detailsFormArray.push(this.fb.group({
+                dishid: [detail.dishid, Validators.required],
+                quantity: [detail.quantity, [Validators.required, Validators.min(1)]],
+                subtotal: [detail.subtotal, [Validators.required, Validators.min(0)]]
+            }));
         });
     }
 
@@ -151,15 +164,14 @@ export class OrderFormComponent implements OnInit {
             const newOrder: Order = this.orderForm.value;
             newOrder.userid = this.authService.currentUserValue?.userid;
             console.log(newOrder);
+
             if (this.isEditMode) {
-                const orderId = this.route.snapshot.paramMap.get('id');
                 this.ordersService.updateOrderWithDetails(newOrder).subscribe({
                     next: (response) => {
                         if (!response.error) {
                             this.sharedMessageService.add({ severity: 'success', summary: 'Pedido Actualizado', detail: 'El pedido ha sido actualizado correctamente.' });
                             this.goBack();
-                        }
-                        else {
+                        } else {
                             this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
                         }
                     },
@@ -174,8 +186,7 @@ export class OrderFormComponent implements OnInit {
                         if (!response.error) {
                             this.sharedMessageService.add({ severity: 'success', summary: 'Pedido Creado', detail: 'El pedido ha sido creado correctamente.' });
                             this.goBack();
-                        }
-                        else {
+                        } else {
                             this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
                         }
                     },
