@@ -46,7 +46,7 @@
                             class="required">*</span></label>
                     <p-inputNumber id="total" formControlName="total" [mode]="'decimal'" [min]="0"
                         [minFractionDigits]="2" [maxFractionDigits]="2" [useGrouping]="false" [showButtons]="true"
-                        class="w-full">
+                        class="w-full" [readonly]="true">
                     </p-inputNumber>
                 </div>
                 <p-message size="small"
@@ -83,9 +83,9 @@
                     </div>
                     <div class="field col-12 md:col-3 sm:col-12">
                         <label for="subtotal" class="block">Subtotal<span class="required">*</span></label>
-                        <p-inputNumber formControlName="subtotal" [mode]="'decimal'"
-                            [min]="0" [minFractionDigits]="2" [maxFractionDigits]="2" [useGrouping]="false"
-                            [showButtons]="true" inputStyleClass="w-full" class="w-full"></p-inputNumber>
+                        <p-inputNumber formControlName="subtotal" [mode]="'decimal'" [min]="0" [minFractionDigits]="2"
+                            [maxFractionDigits]="2" [useGrouping]="false" [showButtons]="true" inputStyleClass="w-full"
+                            class="w-full"></p-inputNumber>
                         <p-message size="small"
                             *ngIf="detail.get('subtotal')?.hasError('required') && detail.get('subtotal')?.touched"
                             severity="error" text="Subtotal es requerido."></p-message>
