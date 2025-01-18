@@ -4,7 +4,10 @@ Este proyecto, **restaurant-management**, está actualmente en la versión **0.0
 
 ## Descripción del Proyecto
 
-El proyecto "Gestión de Restaurantes" es una aplicación web diseñada para facilitar la administración de restaurantes. Permite gestionar pedidos, menús, y reservas, proporcionando una interfaz amigable para los usuarios y administradores.
+El proyecto "Gestión de Restaurantes" es una aplicación demo web diseñada para facilitar la administración de restaurantes. Permite gestionar pedidos, menús, y reservas, proporcionando una interfaz amigable para los usuarios y administradores.
+![alt text](https://github.com/allydevper/restaurant-management/blob/master/demo.gif)
+
+Esta consume una api que conecta con la bd la cual es https://github.com/allydevper/api-restaurant-management
 
 ## Scripts Disponibles
 
@@ -24,14 +27,11 @@ En el directorio del proyecto, puedes ejecutar:
 
 El proyecto está organizado en varios módulos, cada uno con una responsabilidad específica:
 
-- **Dashboard**: Contiene componentes relacionados con el panel de control de la aplicación.
-- **Layout**: Incluye componentes para la estructura visual y el diseño de la aplicación.
-- **Menu**: Maneja los elementos y funcionalidades del menú del restaurante.
-- **Models**: Define las estructuras de datos utilizadas en la aplicación.
-- **Order**: Gestiona los pedidos realizados en el restaurante.
-- **Services**: Proporciona servicios que encapsulan la lógica de negocio de la aplicación.
-- **Tables**: Administra las mesas del restaurante.
-- **Users**: Maneja la información y autenticación de los usuarios.
+- **Dashboard**: Contiene componentes relacionados con el panel de control de la aplicació
+- **Menu**: Maneja los platos del restaurante.
+- **Ordenes**: Gestiona los pedidos realizados en el restaurante.
+- **Mesas**: Administra las mesas del restaurante.
+- **Usuarios**: Maneja la información y autenticación de los usuarios.
 
 ## Servidor de Desarrollo
 
