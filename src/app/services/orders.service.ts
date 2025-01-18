@@ -37,7 +37,7 @@ export class OrdersService {
     return this.http.post<{ error?: ErrorResponse }>(`${this.apiUrl}/details`, order);
   }
 
-  updateOrderWithDetails(order: Order): Observable<{ error?: ErrorResponse }> {
-    return this.http.put<{ error?: ErrorResponse }>(`${this.apiUrl}/details`, order);
+  updateOrderWithDetails(id: string, order: Order): Observable<{ error?: ErrorResponse }> {
+    return this.http.put<{ error?: ErrorResponse }>(`${this.apiUrl}/details/${id}`, order);
   }
 }

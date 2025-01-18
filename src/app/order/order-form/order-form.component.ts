@@ -117,6 +117,7 @@ export class OrderFormComponent implements OnInit {
     setOrderDetails(details: OrderDetail[]) {
         details.forEach(detail => {
             this.detailsFormArray.push(this.fb.group({
+                orderdetailid: [detail.orderdetailid],
                 dishid: [detail.dishid, Validators.required],
                 quantity: [detail.quantity, [Validators.required, Validators.min(1)]],
                 subtotal: [detail.subtotal, [Validators.required, Validators.min(0)]]
@@ -161,10 +162,9 @@ export class OrderFormComponent implements OnInit {
         if (this.orderForm.valid) {
             const newOrder: Order = this.orderForm.value;
             newOrder.userid = this.authService.currentUserValue?.userid;
-            console.log(newOrder);
-
             if (this.isEditMode) {
-                this.ordersService.updateOrderWithDetails(newOrder).subscribe({
+                const orderId = this.route.snapshot.paramMap.get('id');
+                this.ordersService.updateOrderWithDetails(orderId!, newOrder).subscribe({
                     next: (response) => {
                         if (!response.error) {
                             this.sharedMessageService.add({ severity: 'success', summary: 'Pedido Actualizado', detail: 'El pedido ha sido actualizado correctamente.' });
