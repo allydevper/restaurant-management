@@ -1,19 +1,27 @@
 <h2>Dashboard</h2>
 <div class="dashboard-container">
-  <div class="card">
-    <h3>Total Mesas</h3>
-    <p>10</p>
-  </div>
-  <div class="card">
-    <h3>Total Pedidos</h3>
-    <p>25</p>
-  </div>
-  <div class="card">
-    <h3>Clientes Activos</h3>
-    <p>15</p>
-  </div>
-  <div class="card">
-    <h3>Ingresos Totales</h3>
-    <p>$1,500</p>
-  </div>
+  <p-card class="card">
+    <ng-template pTemplate="header">
+      <h3>Total Mesas</h3>
+    </ng-template>
+    <p>{{ totalTables }}</p>
+  </p-card>
+  <p-card class="card">
+    <ng-template pTemplate="header">
+      <h2>Total Pedidos</h2>
+    </ng-template>
+    <p>{{ totalOrders }}</p>
+  </p-card>
+  <p-card class="card">
+    <ng-template pTemplate="header">
+      <h2>Total Platos</h2>
+    </ng-template>
+    <p>{{ totalDishes }}</p>
+  </p-card>
+  <p-card class="card">
+    <ng-template pTemplate="header">
+      <h2>Ingresos Totales</h2>
+    </ng-template>
+    <p>{{ totalIncome | currency }}</p>
+  </p-card>
 </div>

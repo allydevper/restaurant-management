@@ -5,12 +5,25 @@
   margin: 20px;
 }
 
-.card {
+.dashboard-container ::ng-deep .p-card {
   background-color: #1DB954;
   color: white;
   border-radius: 8px;
-  padding: 20px;
+  padding: 0 20px;
   margin: 10px;
-  flex: 1 1 200px;
   text-align: center;
+  width: 350px; /* Fixed width */
+  height: 170px; /* Fixed height */
+}
+.dashboard-container ::ng-deep .p-card .p-card-body {
+  padding: 0%;
+}
+
+.dashboard-container ::ng-deep .p-card .p-card-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.dashboard-container ::ng-deep .p-card .p-card-content {
+  font-size: 1.2rem;
 }
