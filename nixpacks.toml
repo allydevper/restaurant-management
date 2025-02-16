@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["nodejs-18", "caddy"]
+nixPkgs = ["nodejs", "caddy"]
 
 [phases.build]
 commands = ["npm ci", "npm run build", "mv dist/restaurant-management/browser /app/dist"]
