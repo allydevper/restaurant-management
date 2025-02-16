@@ -1,6 +1,4 @@
-:80 {
-    root * /app/dist/restaurant-management
-    encode gzip
-    try_files {path} /index.html
-    file_server
-}
+root * /app/dist/restaurant-management
+file_server
+try_files {path} /index.html
+encode gzip
