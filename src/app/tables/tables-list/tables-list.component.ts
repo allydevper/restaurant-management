@@ -15,11 +15,10 @@ import { TagModule } from 'primeng/tag';
 import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
-  selector: 'app-tables-list',
-  templateUrl: './tables-list.component.html',
-  styleUrls: ['./tables-list.component.scss'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule],
+    selector: 'app-tables-list',
+    templateUrl: './tables-list.component.html',
+    styleUrls: ['./tables-list.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule]
 })
 export class TablesListComponent implements OnInit {
   tables: Table[] = [];

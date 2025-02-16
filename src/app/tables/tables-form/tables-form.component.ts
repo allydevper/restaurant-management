@@ -15,11 +15,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
-  selector: 'app-tables-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, MessageModule, InputTextModule, InputNumberModule],
-  templateUrl: './tables-form.component.html',
-  styleUrls: ['./tables-form.component.scss']
+    selector: 'app-tables-form',
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, MessageModule, InputTextModule, InputNumberModule],
+    templateUrl: './tables-form.component.html',
+    styleUrls: ['./tables-form.component.scss']
 })
 export class TablesFormComponent implements OnInit {
   tableForm: FormGroup;

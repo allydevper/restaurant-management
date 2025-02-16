@@ -18,11 +18,10 @@ import { SharedMessageService } from '../../services/shared-message.service';
 import { PasswordModule } from 'primeng/password';
 
 @Component({
-  selector: 'app-users-form',
-  templateUrl: './users-form.component.html',
-  styleUrls: ['./users-form.component.scss'],
-  standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, PasswordModule, MessageModule]
+    selector: 'app-users-form',
+    templateUrl: './users-form.component.html',
+    styleUrls: ['./users-form.component.scss'],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, PasswordModule, MessageModule]
 })
 export class UsersFormComponent implements OnInit {
   userForm: FormGroup;

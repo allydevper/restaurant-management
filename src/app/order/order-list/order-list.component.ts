@@ -18,7 +18,6 @@ import { SharedMessageService } from '../../services/shared-message.service';
     selector: 'app-order-list',
     templateUrl: './order-list.component.html',
     styleUrl: './order-list.component.scss',
-    standalone: true,
     imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule]
 })
 export class OrderListComponent implements OnInit {

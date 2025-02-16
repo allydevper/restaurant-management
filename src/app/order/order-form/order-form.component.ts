@@ -24,7 +24,6 @@ import { OrderDetail } from '../../models/orderdetail.model';
 
 @Component({
     selector: 'app-order-form',
-    standalone: true,
     imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, CheckboxModule, ButtonModule, MessageModule, ToastModule, ConfirmDialogModule, CardModule, InputNumberModule, InputTextModule],
     templateUrl: './order-form.component.html',
     styleUrl: './order-form.component.scss'

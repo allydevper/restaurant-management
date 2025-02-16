@@ -17,11 +17,10 @@ import { DishesService } from '../../services/dishes.service';
 import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
-  selector: 'app-menu-form',
-  standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, CheckboxModule, ButtonModule, MessageModule, ToastModule, ConfirmDialogModule, CardModule, InputNumberModule, InputTextModule],
-  templateUrl: './menu-form.component.html',
-  styleUrls: ['./menu-form.component.scss']
+    selector: 'app-menu-form',
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, CheckboxModule, ButtonModule, MessageModule, ToastModule, ConfirmDialogModule, CardModule, InputNumberModule, InputTextModule],
+    templateUrl: './menu-form.component.html',
+    styleUrls: ['./menu-form.component.scss']
 })
 export class MenuFormComponent implements OnInit {
   dishForm: FormGroup;

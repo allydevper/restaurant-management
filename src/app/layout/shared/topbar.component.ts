@@ -9,11 +9,10 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-topbar',
-  standalone: true,
-  imports: [CommonModule, MenubarModule, AvatarModule, InputTextModule, ButtonModule],
-  templateUrl: './topbar.component.html',
-  styleUrl: './topbar.component.scss'
+    selector: 'app-topbar',
+    imports: [CommonModule, MenubarModule, AvatarModule, InputTextModule, ButtonModule],
+    templateUrl: './topbar.component.html',
+    styleUrl: './topbar.component.scss'
 })
 export class TopbarComponent {
   items: MenuItem[] = [];
