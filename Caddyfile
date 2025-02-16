@@ -1,7 +1,6 @@
-# Caddyfile
 :80 {
     root * /app/dist/restaurant-management
-    file_server
-    try_files {path} /index.html
     encode gzip
+    try_files {path} /index.html
+    file_server
 }
