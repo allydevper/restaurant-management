@@ -3,4 +3,9 @@
     file_server
     try_files {path} /index.html
     encode gzip
+
+    @notStatic {
+        file
+    }
+    rewrite @notStatic /index.html
 }
