@@ -1,5 +1,5 @@
 :80 {
-    root * /app/dist/restaurant-management
+    root * /app/dist/restaurant-management/browser
     file_server
     try_files {path} /index.html
     encode gzip
