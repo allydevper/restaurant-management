@@ -5,4 +5,4 @@ nixPkgs = ["nodejs", "caddy"]
 commands = ["npm install", "npm run build"]
 
 [phases.start]
-commands = ["caddy run --config /app/Caddyfile"]
+commands = ["caddy run --config /app/Caddyfile --adapter caddyfile"]
