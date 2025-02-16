@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["nodejs", "caddy"]
+
+[phases.build]
+commands = ["npm install", "npm run build"]
+
+[phases.start]
+commands = ["caddy run --config /app/Caddyfile"]
