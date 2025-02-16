@@ -5,4 +5,4 @@ nixPkgs = ["nodejs", "caddy"]
 commands = ["npm install", "npm run build", "mv dist/restaurant-management/browser /app/dist"]
 
 [phases.start]
-commands = ["caddy run --config /app/Caddyfile --adapter caddyfile"]
+commands = ["mkdir -p /app/dist/restaurant-management/browser && caddy run --config /app/Caddyfile --adapter caddyfile"]
