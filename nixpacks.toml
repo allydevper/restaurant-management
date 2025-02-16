@@ -2,7 +2,7 @@
 nixPkgs = ["nodejs", "caddy"]
 
 [phases.build]
-commands = ["npm install", "npm run build"]
+commands = ["npm install", "npm run build", "mv dist/restaurant-management/browser /app/dist"]
 
 [phases.start]
 commands = ["caddy run --config /app/Caddyfile --adapter caddyfile"]
