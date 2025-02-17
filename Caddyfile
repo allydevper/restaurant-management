@@ -1,11 +1,3 @@
-:80 {
-    root * /app/dist
-    file_server
-    try_files {path} /index.html
-    encode gzip
-
-    @notStatic {
-        file
-    }
-    rewrite @notStatic /index.html
+:8080 {
+    respond "Hola, mundo!"
 }
