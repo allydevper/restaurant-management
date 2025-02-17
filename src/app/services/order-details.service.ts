@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environment';
 import { OrderDetail } from '../models/orderdetail.model';
 import { ErrorResponse } from '../models/errorresponse.model';
+import { EnvService } from '../env.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderDetailsService {
-  private apiUrl = `${environment.API_URL}/order-details`;
 
-  constructor(private http: HttpClient) { }
+  apiUrl = "";
+
+  constructor(private http: HttpClient, private envService: EnvService) {
+    this.apiUrl = `${this.envService.apiUrl}/order-details`;
+  }
 
   createOrderDetail(orderDetail: OrderDetail): Observable<{ error?: ErrorResponse }> {
     return this.http.post<{ error?: ErrorResponse }>(this.apiUrl, orderDetail);

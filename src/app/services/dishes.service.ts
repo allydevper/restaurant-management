@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environment';
 import { Dish } from '../models/dish.model';
 import { ErrorResponse } from '../models/errorresponse.model';
+import { EnvService } from '../env.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DishesService {
-  private apiUrl = `${environment.API_URL}/dishes`;
 
-  constructor(private http: HttpClient) { }
+  apiUrl = "";
+
+  constructor(private http: HttpClient, private envService: EnvService) {
+    this.apiUrl = `${this.envService.apiUrl}/dishes`;
+  }
 
   createDish(dish: Dish): Observable<{ error?: ErrorResponse }> {
     return this.http.post<{ error?: ErrorResponse }>(this.apiUrl, dish);
