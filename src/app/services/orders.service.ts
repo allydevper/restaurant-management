@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
 import { ErrorResponse } from '../models/errorresponse.model';
-import { EnvService } from '../env.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,8 @@ export class OrdersService {
 
   apiUrl = "";
 
-  constructor(private http: HttpClient, private envService: EnvService) {
-    this.apiUrl = `${this.envService.apiUrl}/orders`;
+  constructor(private http: HttpClient) {
+    this.apiUrl = `${import.meta.env.NG_APP_PUBLIC_API_URL}/orders`;
   }
 
   createOrder(order: Order): Observable<{ error?: ErrorResponse }> {

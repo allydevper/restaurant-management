@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Dish } from '../models/dish.model';
 import { ErrorResponse } from '../models/errorresponse.model';
-import { EnvService } from '../env.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +11,8 @@ export class DishesService {
 
   apiUrl = "";
 
-  constructor(private http: HttpClient, private envService: EnvService) {
-    this.apiUrl = `${this.envService.apiUrl}/dishes`;
+  constructor(private http: HttpClient) {
+    this.apiUrl = `${import.meta.env.NG_APP_PUBLIC_API_URL}/dishes`;
   }
 
   createDish(dish: Dish): Observable<{ error?: ErrorResponse }> {
