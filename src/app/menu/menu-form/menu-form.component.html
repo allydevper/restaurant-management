@@ -42,8 +42,8 @@
           <label for="price" class="block text-right" style="width: 120px;">Precio<span
               class="required">*</span></label>
           <p-inputNumber id="price" formControlName="price" [mode]="'decimal'" [min]="0" [minFractionDigits]="2"
-            [maxFractionDigits]="2" [useGrouping]="false" [showButtons]="true" class="w-full">
-          </p-inputNumber>
+            [maxFractionDigits]="2" [useGrouping]="false" [showButtons]="true" [locale]="'en-US'"
+            class="w-full"></p-inputNumber>
         </div>
         <p-message size="small"
           *ngIf="(dishForm.get('price')?.hasError('required') || dishForm.get('price')?.hasError('min')) && dishForm.get('price')?.touched"
