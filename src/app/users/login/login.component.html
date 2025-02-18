@@ -1,18 +1,20 @@
 <div class="flex justify-content-center align-items-center h-screen">
-  <p-card>
+  <p-card class="w-1/3 shadow-3">
     <ng-template #header></ng-template>
     <h2 class="text-center">Gestion de Restaurantes</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-5">
       <div class="p-field">
         <label for="username">Usuario:</label>
         <input pInputText type="text" formControlName="username" name="username" class="w-full" required>
+        <p-message *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" severity="error" text="El nombre de usuario es requerido"></p-message>
       </div>
       <div class="p-field">
         <label for="password">Contraseña:</label>
         <p-password formControlName="password" promptLabel="Elija una Contraseña" weakLabel="Muy débil"
           mediumLabel="Media" strongLabel="Fuerte" class="w-full" styleClass="w-full" inputStyleClass="w-full" />
+        <p-message *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" severity="error" text="La contraseña es requerida"></p-message>
       </div>
-      <button pButton type="submit" label="Login" class="p-button-success w-full"></button>
+      <button pButton type="submit" label="Login" class="p-button-success w-full" [disabled]="isSubmitting"></button>
     </form>
   </p-card>
 </div>

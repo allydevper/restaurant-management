@@ -20,6 +20,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  isSubmitting = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,8 +41,10 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.isSubmitting = true;
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      this.isSubmitting = false;
       return;
     }
 
@@ -56,10 +59,12 @@ export class LoginComponent {
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error });
         }
+        this.isSubmitting = false;
       },
       error: (error) => {
         console.error(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la información del usuario.' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo conectar con el login.' });
+        this.isSubmitting = false;
       }
     });
   }
