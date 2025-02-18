@@ -1,12 +1,12 @@
 <div class="sidebar" [class.collapsed]="isCollapsed">
   <div class="sidebar-header">
     <a href="/" style="text-decoration: none;">
-      <h2>Gestión de Restaurantes</h2>
+      <h2>Gestión de <br>Restaurantes</h2>
     </a>
+    <button (click)="toggleSidebar()" class="hamburger">
+      <i class="pi pi-bars"></i>
+    </button>
   </div>
-  <button (click)="toggleSidebar()" class="hamburger">
-    <i class="pi pi-bars"></i>
-  </button>
   <nav>
     <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
       <i class="pi pi-home"></i>

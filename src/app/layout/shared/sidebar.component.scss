@@ -10,6 +10,9 @@ $spotify-white: #FFFFFF;
 }
 
 .sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   text-align: center;
   margin-bottom: 30px;
 
@@ -17,6 +20,15 @@ $spotify-white: #FFFFFF;
     color: $spotify-white;
     font-size: 24px;
     margin: 0;
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    color: $spotify-white;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 10px; // Add margin to move the button to the right
   }
 }
 
@@ -52,7 +64,16 @@ $spotify-white: #FFFFFF;
     width: 60px;
 
     .sidebar-header {
-      display: none;
+      justify-content: center;
+      margin-bottom: 0; // Remove margin to align with other items
+
+      h2 {
+        display: none;
+      }
+
+      .hamburger {
+        margin-left: 0; // Reset margin to align with other items
+      }
     }
 
     .nav-link {
