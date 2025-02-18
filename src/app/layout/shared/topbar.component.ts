@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -15,16 +14,12 @@ import { ButtonModule } from 'primeng/button';
     styleUrl: './topbar.component.scss'
 })
 export class TopbarComponent {
-  items: MenuItem[] = [];
+  welcomeMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.items = [
-      {
-        label: 'Bienvenido ' + this.authService.currentUserValue?.username,
-      }
-    ];
+    this.welcomeMessage = 'Bienvenido ' + this.authService.currentUserValue?.username;
   }
 
   logout() {
