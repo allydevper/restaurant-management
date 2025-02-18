@@ -1,29 +1,32 @@
-<div class="sidebar">
+<div class="sidebar" [class.collapsed]="isCollapsed">
   <div class="sidebar-header">
     <a href="/" style="text-decoration: none;">
       <h2>Gestión de Restaurantes</h2>
     </a>
   </div>
+  <button (click)="toggleSidebar()" class="hamburger">
+    <i class="pi pi-bars"></i>
+  </button>
   <nav>
     <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
       <i class="pi pi-home"></i>
-      Inicio
+      <span>Inicio</span>
     </a>
     <a class="nav-link" routerLink="/menu" routerLinkActive="active">
       <i class="pi pi-list"></i>
-      Menu
+      <span>Menu</span>
     </a>
     <a class="nav-link" routerLink="/tables" routerLinkActive="active">
       <i class="pi pi-table"></i>
-      Mesas
+      <span>Mesas</span>
     </a>
     <a class="nav-link" routerLink="/order" routerLinkActive="active">
       <i class="pi pi-shopping-cart"></i>
-      Pedidos
+      <span>Pedidos</span>
     </a>
     <a class="nav-link" routerLink="/users" routerLinkActive="active">
       <i class="pi pi-users"></i>
-      Usuarios
+      <span>Usuarios</span>
     </a>
   </nav>
 </div>
