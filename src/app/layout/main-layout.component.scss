@@ -4,6 +4,7 @@ $spotify-white: #FFFFFF;
 
 .layout {
   display: flex;
+  height: 100vh; // Make the layout container take the full height
 }
 
 .sidebar {
@@ -27,4 +28,5 @@ $spotify-white: #FFFFFF;
 .content {
   flex: 1;
   padding: 20px;
+  overflow: auto;
 }
