@@ -23,6 +23,10 @@ export class DishesService {
     return this.http.get<{ data: Dish[]; error?: ErrorResponse }>(this.apiUrl);
   }
 
+  getDishesByPage(page: number, pageSize: number): Observable<{ data: Dish[]; count: number; error?: ErrorResponse }> {
+    return this.http.get<{ data: Dish[]; count: number; error?: ErrorResponse }>(`${this.apiUrl}/${page}/${pageSize}`);
+  }
+
   getDishesById(id: string): Observable<{ data?: Dish; error?: ErrorResponse }> {
     return this.http.get<{ data?: Dish; error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }

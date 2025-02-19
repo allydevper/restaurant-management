@@ -10,8 +10,9 @@
       <button size="small" pButton label="Agregar Plato" icon="pi pi-plus" (click)="createDish()" type="button"
         class="p-button-success"></button>
     </div>
-    <p-table [value]="dishes" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
-      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total" [showCurrentPageReport]="true"
+    <p-table [value]="dishes" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords" [first]="first"
+      (onLazyLoad)="loadDishesLazy($event)" [rowHover]="true" dataKey="id" [lazy]="true"
+      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} elementos en total" [showCurrentPageReport]="true"
       showGridlines>
       <ng-template #header>
         <tr>
@@ -35,7 +36,7 @@
           </td>
           <td>{{dish.name}}</td>
           <td>{{dish.dishescategory.name}}</td>
-            <td style="text-align: right;">{{dish.price | currency:'PEN':'S/.'}}</td>
+          <td style="text-align: right;">{{dish.price | currency:'PEN':'S/.'}}</td>
           <td>
             <span *ngIf="dish.isavailable; else notAvailable">
               <p-tag value="Disponible" severity="success" />

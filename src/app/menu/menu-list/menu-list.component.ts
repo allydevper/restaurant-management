@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -23,6 +23,9 @@ import { SharedConfirmationService } from '../../services/shared-confirmation.se
 })
 export class MenuListComponent implements OnInit {
   dishes: Dish[] = [];
+  totalRecords: number = 20;
+  rows: number = 10;
+  first: number = 0;
 
   constructor(
     private messageService: MessageService,
@@ -39,13 +42,15 @@ export class MenuListComponent implements OnInit {
         this.messageService.add(sharedMessage);
       }, 0);
     }
+  }
 
-    this.dishesService.getDishes().subscribe({
+  loadDishes() {
+    this.dishesService.getDishesByPage((this.first / this.rows) + 1, this.rows).subscribe({
       next: (response) => {
         if (!response.error) {
           this.dishes = response.data;
-        }
-        else {
+          this.totalRecords = response.count;
+        } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
       },
@@ -56,17 +61,23 @@ export class MenuListComponent implements OnInit {
     });
   }
 
+  loadDishesLazy(event: TableLazyLoadEvent) {
+    console.log(event);
+    this.first = event.first!;
+    this.rows = event.rows!;
+    this.loadDishes();
+  }
+
   editDish(dish: Dish) {
     this.router.navigate(['/menu/edit', dish.dishid]);
   }
 
   deleteDish(dish: Dish) {
     this.sharedConfirmationService.confirmDelete('¿Estás seguro de que deseas eliminar este plato?', () => {
-
       this.dishesService.deleteDish(dish.dishid!.toString()).subscribe({
         next: (response) => {
           if (!response.error) {
-            this.dishes = this.dishes.filter(d => d.dishid !== dish.dishid);
+            this.loadDishes();
             this.messageService.add({ severity: 'success', summary: 'Plato Eliminado', detail: 'El plato ha sido eliminado correctamente.' });
           } else {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
@@ -77,7 +88,6 @@ export class MenuListComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el plato.' });
         }
       });
-
     });
   }
 
