@@ -26,10 +26,11 @@ export class MenuFormComponent implements OnInit {
   dishForm: FormGroup;
   categories = Object.values([
     { id: 1, name: 'Aperitivo' },
-    { id: 2, name: 'Principal' },
-    { id: 3, name: 'Postre' },
-    { id: 4, name: 'Bebida' }]
-  );
+    { id: 2, name: 'Entrada' },
+    { id: 3, name: 'Platos Principales' },
+    { id: 4, name: 'Postres' },
+    { id: 5, name: 'Bebidas' }
+  ]);
   isEditMode: boolean = false;
 
   constructor(private fb: FormBuilder, 
