@@ -15,12 +15,12 @@
       showGridlines>
       <ng-template #header>
         <tr>
-          <th style="width:80px"></th>
-          <th>Nombre</th>
-          <th>Categoría</th>
-          <th>Precio</th>
-          <th>Disponibilidad</th>
-          <th>Creación</th>
+          <th style="width:100px"></th>
+          <th style="width:300px">Nombre</th>
+          <th style="width:150px">Categoría</th>
+          <th style="width:100px">Precio</th>
+          <th style="width:150px">Disponibilidad</th>
+          <th style="width:100px">Creación</th>
         </tr>
       </ng-template>
       <ng-template #body let-dish>
@@ -35,7 +35,7 @@
           </td>
           <td>{{dish.name}}</td>
           <td>{{dish.dishescategory.name}}</td>
-          <td>{{dish.price | currency:'PEN':'S/.'}}</td>
+            <td style="text-align: right;">{{dish.price | currency:'PEN':'S/.'}}</td>
           <td>
             <span *ngIf="dish.isavailable; else notAvailable">
               <p-tag value="Disponible" severity="success" />
@@ -44,7 +44,7 @@
               <p-tag value="No Disponible" severity="danger" />
             </ng-template>
           </td>
-          <td>{{dish.createdat | date:'dd/MM/yy'}}</td>
+          <td>{{dish.createdat | date:'dd/MM/yy hh:mm'}}</td>
         </tr>
       </ng-template>
     </p-table>
