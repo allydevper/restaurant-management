@@ -37,7 +37,7 @@
           <td>{{dish.name}}</td>
           <td>{{dish.dishescategory.name}}</td>
           <td style="text-align: right;">{{dish.price | currency:'PEN':'S/.'}}</td>
-          <td>
+          <td class="text-center">
             <span *ngIf="dish.isavailable; else notAvailable">
               <p-tag value="Disponible" severity="success" />
             </span>
