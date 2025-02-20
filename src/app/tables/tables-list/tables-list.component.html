@@ -10,12 +10,12 @@
       <button size="small" pButton label="Agregar Mesa" icon="pi pi-plus" (click)="createTable()" type="button"
         class="p-button-success"></button>
     </div>
-    <p-table [value]="tables" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="tableid"
-      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total" [showCurrentPageReport]="true"
-      showGridlines>
+    <p-table [value]="tables" [paginator]="false" [rows]="10" [rowHover]="true" dataKey="tableid" [lazy]="true"
+      [loading]="loading" currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total"
+      [showCurrentPageReport]="true" [tableStyle]="{'height': '400px'}" showGridlines>
       <ng-template #header>
         <tr>
-          <th style="width:80px"></th>
+          <th style="width:100px"></th>
           <th>Número de Mesa</th>
           <th>Estado</th>
           <th>Actualizado el</th>
@@ -23,15 +23,15 @@
       </ng-template>
       <ng-template #body let-table>
         <tr>
-          <td style="padding: 0.5rem;">
-            <div class="flex gap-1">
-              <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded"
+          <td class="p-2 text-center">
+            <div class="justify-center">
+              <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded mr-2"
                 (click)="editTable(table)" type="button"></button>
               <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
                 (click)="deleteTable(table)" type="button"></button>
             </div>
           </td>
-          <td>{{table.tablenumber}}</td>
+          <td>N° {{table.tablenumber}}</td>
           <td>
             <span *ngIf="table.status === 'Libre'; else notAvailable">
               <p-tag value="{{table.status}}" severity="success" />

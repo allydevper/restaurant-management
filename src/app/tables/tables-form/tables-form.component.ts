@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
@@ -15,12 +15,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
-    selector: 'app-tables-form',
-    imports: [CommonModule, ReactiveFormsModule, FormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, MessageModule, InputTextModule, InputNumberModule],
-    templateUrl: './tables-form.component.html',
-    styleUrls: ['./tables-form.component.scss']
+  selector: 'app-tables-form',
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, MessageModule, InputTextModule, InputNumberModule],
+  templateUrl: './tables-form.component.html',
+  styleUrls: ['./tables-form.component.scss']
 })
 export class TablesFormComponent implements OnInit {
+  loading: boolean = false;
   tableForm: FormGroup;
   isEditMode: boolean = false;
   status = [
@@ -30,6 +31,7 @@ export class TablesFormComponent implements OnInit {
   ];
 
   constructor(private fb: FormBuilder,
+    private changeDetectorRef: ChangeDetectorRef,
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute,
@@ -67,6 +69,10 @@ export class TablesFormComponent implements OnInit {
 
   onSubmit() {
     if (this.tableForm.valid) {
+
+      this.loading = true;
+      this.changeDetectorRef.detectChanges();
+
       const newTable = this.tableForm.value;
       if (this.isEditMode) {
         const tableId = this.route.snapshot.paramMap.get('id');
@@ -84,6 +90,9 @@ export class TablesFormComponent implements OnInit {
           error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar la mesa.' });
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
       } else {
@@ -100,6 +109,9 @@ export class TablesFormComponent implements OnInit {
           error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear la mesa.' });
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
       }
