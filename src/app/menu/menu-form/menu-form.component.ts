@@ -26,13 +26,13 @@ import { SharedMessageService } from '../../services/shared-message.service';
 export class MenuFormComponent implements OnInit {
   loading: boolean = false;
   dishForm: FormGroup;
-  categories = Object.values([
+  categories = [
     { id: 1, name: 'Aperitivo' },
     { id: 2, name: 'Entrada' },
     { id: 3, name: 'Platos Principales' },
     { id: 4, name: 'Postres' },
     { id: 5, name: 'Bebidas' }
-  ]);
+  ];
   isEditMode: boolean = false;
 
   constructor(private fb: FormBuilder,
