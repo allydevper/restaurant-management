@@ -23,7 +23,7 @@ import { SharedConfirmationService } from '../../services/shared-confirmation.se
 })
 export class MenuListComponent implements OnInit {
   dishes: Dish[] = [];
-  totalRecords: number = 20;
+  totalRecords: number = 0;
   rows: number = 10;
   first: number = 0;
 
