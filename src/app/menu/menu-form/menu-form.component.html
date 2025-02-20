@@ -8,7 +8,7 @@
   <div class="flex justify-content-end mb-4">
     <div class="flex gap-1">
       <button pButton size="small" label="{{ isEditMode ? 'Actualizar' : 'Crear' }}" icon="pi pi-save" type="button"
-        (click)="onSubmit()" class="p-button-success"></button>
+        (click)="onSubmit()" class="p-button-success" [disabled]="loading"></button>
       <button pButton size="small" label="Atrás" icon="pi pi-arrow-left" (click)="goBack()" type="button"
         class="p-button-secondary"></button>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Dish } from '../../models/dish.model';
 import { MessageService } from 'primeng/api';
@@ -9,6 +9,7 @@ import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CardModule } from 'primeng/card';
+import { ProgressSpinnerModule } from 'primeng/progressspinner'
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,12 +18,13 @@ import { DishesService } from '../../services/dishes.service';
 import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
-    selector: 'app-menu-form',
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, CheckboxModule, ButtonModule, MessageModule, ToastModule, ConfirmDialogModule, CardModule, InputNumberModule, InputTextModule],
-    templateUrl: './menu-form.component.html',
-    styleUrls: ['./menu-form.component.scss']
+  selector: 'app-menu-form',
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, CheckboxModule, ButtonModule, MessageModule, ToastModule, ConfirmDialogModule, CardModule, InputNumberModule, InputTextModule, ProgressSpinnerModule],
+  templateUrl: './menu-form.component.html',
+  styleUrls: ['./menu-form.component.scss']
 })
 export class MenuFormComponent implements OnInit {
+  loading: boolean = false;
   dishForm: FormGroup;
   categories = Object.values([
     { id: 1, name: 'Aperitivo' },
@@ -33,13 +35,14 @@ export class MenuFormComponent implements OnInit {
   ]);
   isEditMode: boolean = false;
 
-  constructor(private fb: FormBuilder, 
-    private messageService: MessageService, 
-    private router: Router, 
-    private route: ActivatedRoute, 
+  constructor(private fb: FormBuilder,
+    private changeDetectorRef: ChangeDetectorRef,
+    private messageService: MessageService,
+    private router: Router,
+    private route: ActivatedRoute,
     private dishesService: DishesService,
     private sharedMessageService: SharedMessageService) {
-      
+
     this.dishForm = this.fb.group({
       name: ['', Validators.required],
       dishescategoryid: ['', Validators.required],
@@ -75,10 +78,13 @@ export class MenuFormComponent implements OnInit {
 
   onSubmit() {
     if (this.dishForm.valid) {
+
+      this.loading = true;
+      this.changeDetectorRef.detectChanges();
+
       const newDish: Dish = this.dishForm.value;
       if (this.isEditMode) {
         const dishId = this.route.snapshot.paramMap.get('id');
-        console.log(newDish);
         this.dishesService.updateDish(dishId!, newDish).subscribe({
           next: (response) => {
             if (!response.error) {
@@ -92,10 +98,12 @@ export class MenuFormComponent implements OnInit {
           error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el plato.' });
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
       } else {
-        console.log(newDish);
         this.dishesService.createDish(newDish).subscribe({
           next: (response) => {
             if (!response.error) {
@@ -109,6 +117,9 @@ export class MenuFormComponent implements OnInit {
           error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el plato.' });
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
       }
