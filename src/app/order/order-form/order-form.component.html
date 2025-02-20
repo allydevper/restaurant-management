@@ -69,7 +69,8 @@
                     <div class="field col-12 md:col-4 sm:col-12">
                         <label for="dishid" class="block">Plato<span class="required">*</span></label>
                         <p-select [options]="dishes" formControlName="dishid" optionLabel="name" optionValue="dishid"
-                            class="w-full" (onChange)="updateSubtotal(i)"></p-select>
+                            [showClear]="true" filterBy="name" [filter]="true" class="w-full"
+                            (onChange)="updateSubtotal(i)"></p-select>
                         <p-message size="small"
                             *ngIf="detail.get('dishid')?.hasError('required') && detail.get('dishid')?.touched"
                             severity="error" text="Plato es requerido."></p-message>
