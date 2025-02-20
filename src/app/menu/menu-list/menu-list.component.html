@@ -12,23 +12,23 @@
     </div>
     <p-table [value]="dishes" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords" [first]="first"
       (onLazyLoad)="loadDishesLazy($event)" [rowHover]="true" dataKey="id" [lazy]="true"
-      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} elementos en total" [showCurrentPageReport]="true"
-      showGridlines>
+      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} elementos en total"
+      [showCurrentPageReport]="true" showGridlines>
       <ng-template #header>
         <tr>
           <th style="width:100px"></th>
-          <th style="width:300px">Nombre</th>
-          <th style="width:150px">Categoría</th>
+          <th style="width:500px">Nombre</th>
+          <th style="width:180px">Categoría</th>
           <th style="width:100px">Precio</th>
           <th style="width:150px">Disponibilidad</th>
-          <th style="width:100px">Creación</th>
+          <th style="width:120px">Creación</th>
         </tr>
       </ng-template>
       <ng-template #body let-dish>
         <tr>
-          <td style="padding: 0.5rem;">
-            <div class="flex gap-1">
-              <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded"
+          <td class="p-2 text-center">
+            <div class="justify-center">
+              <button size="small" pButton icon="pi pi-file-edit" class="p-button-success p-button-rounded mr-2"
                 (click)="editDish(dish)" type="button"></button>
               <button size="small" pButton icon="pi pi-trash" class="p-button-danger p-button-rounded"
                 (click)="deleteDish(dish)" type="button"></button>
