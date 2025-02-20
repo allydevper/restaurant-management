@@ -12,7 +12,7 @@
     </div>
     <p-table [value]="dishes" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords" [first]="first"
       (onLazyLoad)="loadDishesLazy($event)" [rowHover]="true" dataKey="id" [lazy]="true"
-      currentPageReportTemplate="Registros {first} a {last} de {totalRecords} elementos en total"
+      currentPageReportTemplate="Registros de {first} a {last} del total de {totalRecords}"
       [showCurrentPageReport]="true" showGridlines>
       <ng-template #header>
         <tr>
