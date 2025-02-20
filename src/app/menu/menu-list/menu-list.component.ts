@@ -44,7 +44,6 @@ export class MenuListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('MenuListComponent.ngOnInit');
     const sharedMessage = this.sharedMessageService.show();
     if (sharedMessage) {
       setTimeout(() => {
