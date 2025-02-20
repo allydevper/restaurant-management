@@ -14,6 +14,7 @@ import { DishesService } from '../../services/dishes.service';
 import { TagModule } from 'primeng/tag';
 import { SharedMessageService } from '../../services/shared-message.service';
 import { SharedConfirmationService } from '../../services/shared-confirmation.service';
+import { PaginationService } from '../../services/pagination.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -22,6 +23,7 @@ import { SharedConfirmationService } from '../../services/shared-confirmation.se
   imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule]
 })
 export class MenuListComponent implements OnInit {
+  private readonly componentKey = 'MenuListComponent';
   dishes: Dish[] = [];
   totalRecords: number = 0;
   rows: number = 10;
@@ -32,10 +34,16 @@ export class MenuListComponent implements OnInit {
     private router: Router,
     private dishesService: DishesService,
     private sharedMessageService: SharedMessageService,
-    private sharedConfirmationService: SharedConfirmationService
-  ) { }
+    private sharedConfirmationService: SharedConfirmationService,
+    private paginationService: PaginationService
+  ) {
+    const { rows, first } = this.paginationService.getPaginationState(this.componentKey);
+    this.rows = rows;
+    this.first = first;
+  }
 
   ngOnInit() {
+    console.log('MenuListComponent.ngOnInit');
     const sharedMessage = this.sharedMessageService.show();
     if (sharedMessage) {
       setTimeout(() => {
@@ -62,10 +70,10 @@ export class MenuListComponent implements OnInit {
   }
 
   loadDishesLazy(event: TableLazyLoadEvent) {
-    console.log(event);
     this.first = event.first!;
     this.rows = event.rows!;
     this.loadDishes();
+    this.paginationService.savePaginationState(this.componentKey, this.first, this.rows);
   }
 
   editDish(dish: Dish) {
