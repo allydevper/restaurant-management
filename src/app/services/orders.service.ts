@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
@@ -21,6 +21,10 @@ export class OrdersService {
 
   getOrders(): Observable<{ data: Order[]; error?: ErrorResponse }> {
     return this.http.get<{ data: Order[]; error?: ErrorResponse }>(this.apiUrl);
+  }
+
+  getOrdersByPage(page: number, pageSize: number): Observable<{ data: Order[]; count: number; error?: ErrorResponse }> {
+    return this.http.get<{ data: Order[]; count: number; error?: ErrorResponse }>(`${this.apiUrl}/${page}/${pageSize}`);
   }
 
   getOrderById(id: string): Observable<{ data?: Order; error?: ErrorResponse }> {

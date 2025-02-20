@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Order } from '../../models/order.model';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
 import { OrdersService } from '../../services/orders.service';
 import { TagModule } from 'primeng/tag';
 import { SharedMessageService } from '../../services/shared-message.service';
+import { PaginationService } from '../../services/pagination.service';
+import { SharedConfirmationService } from '../../services/shared-confirmation.service';
 
 @Component({
     selector: 'app-order-list',
@@ -21,14 +23,21 @@ import { SharedMessageService } from '../../services/shared-message.service';
     imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule, TagModule]
 })
 export class OrderListComponent implements OnInit {
+    private readonly componentKey = 'OrderListComponent';
+    loading: boolean = false;
     orders: Order[] = [];
+    totalRecords: number = 0;
+    rows: number = 10;
+    first: number = 0;
 
     constructor(
+        private changeDetectorRef: ChangeDetectorRef,
         private messageService: MessageService,
-        private confirmationService: ConfirmationService,
         private router: Router,
         private ordersService: OrdersService,
-        private sharedMessageService: SharedMessageService
+        private sharedMessageService: SharedMessageService,
+        private sharedConfirmationService: SharedConfirmationService,
+        private paginationService: PaginationService
     ) { }
 
     ngOnInit() {
@@ -38,11 +47,17 @@ export class OrderListComponent implements OnInit {
                 this.messageService.add(sharedMessage);
             }, 0);
         }
+    }
 
-        this.ordersService.getOrders().subscribe({
+    loadOrders() {
+        this.loading = true;
+        this.changeDetectorRef.detectChanges();
+
+        this.ordersService.getOrdersByPage((this.first / this.rows) + 1, this.rows).subscribe({
             next: (response) => {
                 if (!response.error) {
                     this.orders = response.data;
+                    this.totalRecords = response.count;
                 }
                 else {
                     this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
@@ -51,8 +66,18 @@ export class OrderListComponent implements OnInit {
             error: (error) => {
                 console.error(error);
                 this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los pedidos.' });
+            },
+            complete: () => {
+                this.loading = false;
             }
         });
+    }
+
+    loadOrdersLazy(event: TableLazyLoadEvent) {
+        this.first = event.first!;
+        this.rows = event.rows!;
+        this.loadOrders();
+        this.paginationService.savePaginationState(this.componentKey, this.first, this.rows);
     }
 
     editOrder(order: Order) {
@@ -60,28 +85,29 @@ export class OrderListComponent implements OnInit {
     }
 
     deleteOrder(order: Order) {
-        this.confirmationService.confirm({
-            message: '¿Estás seguro de que deseas eliminar este pedido?',
-            header: 'Confirmar',
-            icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Si',
-            rejectLabel: 'No',
-            accept: () => {
-                this.ordersService.deleteOrder(order.orderid!.toString()).subscribe({
-                    next: (response) => {
-                        if (!response.error) {
-                            this.orders = this.orders.filter(o => o.orderid !== order.orderid);
-                            this.messageService.add({ severity: 'success', summary: 'Pedido Eliminado', detail: 'El pedido ha sido eliminado correctamente.' });
-                        } else {
-                            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
-                        }
-                    },
-                    error: (error) => {
-                        console.error(error);
-                        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el pedido.' });
+
+        this.sharedConfirmationService.confirmDelete('¿Estás seguro de que deseas eliminar este pedido?', () => {
+
+            this.loading = true;
+            this.changeDetectorRef.detectChanges();
+
+            this.ordersService.deleteOrder(order.orderid!.toString()).subscribe({
+                next: (response) => {
+                    if (!response.error) {
+                        this.orders = this.orders.filter(o => o.orderid !== order.orderid);
+                        this.messageService.add({ severity: 'success', summary: 'Pedido Eliminado', detail: 'El pedido ha sido eliminado correctamente.' });
+                    } else {
+                        this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
                     }
-                });
-            }
+                },
+                error: (error) => {
+                    console.error(error);
+                    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el pedido.' });
+                },
+                complete: () => {
+                    this.loading = false;
+                }
+            });
         });
     }
 

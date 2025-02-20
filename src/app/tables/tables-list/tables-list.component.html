@@ -11,7 +11,7 @@
         class="p-button-success"></button>
     </div>
     <p-table [value]="tables" [paginator]="false" [rows]="10" [rowHover]="true" dataKey="tableid" [lazy]="true"
-      [loading]="loading" currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total"
+      [loading]="loading" currentPageReportTemplate="Registros de {first} a {last} del total de {totalRecords}"
       [showCurrentPageReport]="true" [tableStyle]="{'height': '400px'}" showGridlines>
       <ng-template #header>
         <tr>

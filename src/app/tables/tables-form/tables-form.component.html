@@ -21,7 +21,7 @@
           <label for="tablenumber" class="block text-right" style="width: 120px;">Número de Mesa<span
               class="required">*</span></label>
           <p-inputNumber inputId="tablenumber" formControlName="tablenumber" [showButtons]="true" [min]="0"
-            class="w-full"></p-inputNumber>
+            [inputStyle]="{'text-align': 'right', 'padding-right': '45px'}" class="w-full"></p-inputNumber>
         </div>
         <p-message size="small"
           *ngIf="(tableForm.get('tablenumber')?.hasError('required')  || tableForm.get('tablenumber')?.hasError('min')) && tableForm.get('tablenumber')?.touched"

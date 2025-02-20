@@ -8,7 +8,7 @@
     <div class="flex justify-content-end mb-4">
         <div class="flex gap-1">
             <button pButton size="small" label="{{ isEditMode ? 'Actualizar' : 'Crear' }}" icon="pi pi-save"
-                type="button" (click)="onSubmit()" class="p-button-success"></button>
+                type="button" (click)="onSubmit()" class="p-button-success" [disabled]="loading"></button>
             <button pButton size="small" label="Atrás" icon="pi pi-arrow-left" (click)="goBack()" type="button"
                 class="p-button-secondary"></button>
         </div>
@@ -46,8 +46,9 @@
                             class="required">*</span></label>
                     <p-inputNumber id="total" formControlName="total" [mode]="'decimal'" [min]="0"
                         [minFractionDigits]="2" [maxFractionDigits]="2" [useGrouping]="false" [showButtons]="true"
-                        class="w-full" [readonly]="true">
-                    </p-inputNumber>
+                        [locale]="'en-US'" class="w-full"
+                        [inputStyle]="{'text-align': 'right', 'padding-right': '45px'}"
+                        [readonly]="true"></p-inputNumber>
                 </div>
                 <p-message size="small"
                     *ngIf="(orderForm.get('total')?.hasError('required') || orderForm.get('total')?.hasError('min')) && orderForm.get('total')?.touched"

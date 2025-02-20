@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { Order } from '../../models/order.model';
 import { MessageService } from 'primeng/api';
@@ -29,6 +29,7 @@ import { OrderDetail } from '../../models/orderdetail.model';
     styleUrl: './order-form.component.scss'
 })
 export class OrderFormComponent implements OnInit {
+    loading: boolean = false;
     orderForm: FormGroup;
     detailsFormArray: FormArray;
     isEditMode: boolean = false;
@@ -41,6 +42,7 @@ export class OrderFormComponent implements OnInit {
     ];
 
     constructor(private fb: FormBuilder,
+        private changeDetectorRef: ChangeDetectorRef,
         private messageService: MessageService,
         private router: Router,
         private route: ActivatedRoute,
@@ -159,6 +161,10 @@ export class OrderFormComponent implements OnInit {
 
     onSubmit() {
         if (this.orderForm.valid) {
+
+            this.loading = true;
+            this.changeDetectorRef.detectChanges();
+
             const newOrder: Order = this.orderForm.value;
             newOrder.userid = this.authService.currentUserValue?.userid;
             if (this.isEditMode) {
@@ -175,6 +181,9 @@ export class OrderFormComponent implements OnInit {
                     error: (error) => {
                         console.error(error);
                         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el pedido.' });
+                    },
+                    complete: () => {
+                        this.loading = false;
                     }
                 });
             } else {
@@ -190,6 +199,9 @@ export class OrderFormComponent implements OnInit {
                     error: (error) => {
                         console.error(error);
                         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el pedido.' });
+                    },
+                    complete: () => {
+                        this.loading = false;
                     }
                 });
             }

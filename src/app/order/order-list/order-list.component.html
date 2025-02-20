@@ -10,12 +10,14 @@
             <button size="small" pButton label="Agregar Pedido" icon="pi pi-plus" (click)="createOrder()" type="button"
                 class="p-button-success"></button>
         </div>
-        <p-table [value]="orders" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="id"
-            currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total"
+        <p-table [value]="orders" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords" [first]="first"
+            (onLazyLoad)="loadOrdersLazy($event)" [rowHover]="true" dataKey="id" [lazy]="true" [loading]="loading"
+            currentPageReportTemplate="Registros de {first} a {last} del total de {totalRecords}"
             [showCurrentPageReport]="true" showGridlines>
             <ng-template #header>
                 <tr>
                     <th style="width:80px"></th>
+                    <th># Pedido</th>
                     <th>Mesa</th>
                     <th>Total</th>
                     <th>Estado</th>
@@ -33,7 +35,8 @@
                                 (click)="deleteOrder(order)" type="button"></button>
                         </div>
                     </td>
-                    <td>{{order.tables?.tablenumber}}</td>
+                    <td>{{order.orderid?.toString().padStart(10, '0')}}</td>
+                    <td>N° {{order.tables?.tablenumber}}</td>
                     <td>{{order.total | currency:'PEN':'S/.'}}</td>
                     <td>
                         <span *ngIf="order.status === 'Servido'; else notAvailable">
