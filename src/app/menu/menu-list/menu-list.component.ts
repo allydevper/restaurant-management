@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
@@ -31,6 +31,7 @@ export class MenuListComponent implements OnInit {
   first: number = 0;
 
   constructor(
+    private changeDetectorRef: ChangeDetectorRef,
     private messageService: MessageService,
     private router: Router,
     private dishesService: DishesService,
@@ -54,6 +55,8 @@ export class MenuListComponent implements OnInit {
 
   loadDishes() {
     this.loading = true;
+    this.changeDetectorRef.detectChanges();
+    
     this.dishesService.getDishesByPage((this.first / this.rows) + 1, this.rows).subscribe({
       next: (response) => {
         if (!response.error) {
