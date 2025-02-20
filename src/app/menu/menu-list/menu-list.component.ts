@@ -24,6 +24,7 @@ import { PaginationService } from '../../services/pagination.service';
 })
 export class MenuListComponent implements OnInit {
   private readonly componentKey = 'MenuListComponent';
+  loading: boolean = false;
   dishes: Dish[] = [];
   totalRecords: number = 0;
   rows: number = 10;
@@ -53,6 +54,7 @@ export class MenuListComponent implements OnInit {
   }
 
   loadDishes() {
+    this.loading = true;
     this.dishesService.getDishesByPage((this.first / this.rows) + 1, this.rows).subscribe({
       next: (response) => {
         if (!response.error) {
@@ -65,6 +67,9 @@ export class MenuListComponent implements OnInit {
       error: (error) => {
         console.error(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los platos.' });
+      },
+      complete: () =>{
+        this.loading = false;
       }
     });
   }

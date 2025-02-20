@@ -11,7 +11,7 @@
         class="p-button-success"></button>
     </div>
     <p-table [value]="dishes" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords" [first]="first"
-      (onLazyLoad)="loadDishesLazy($event)" [rowHover]="true" dataKey="id" [lazy]="true"
+      (onLazyLoad)="loadDishesLazy($event)" [rowHover]="true" dataKey="id" [lazy]="true" [loading]="loading"
       currentPageReportTemplate="Registros de {first} a {last} del total de {totalRecords}"
       [showCurrentPageReport]="true" showGridlines>
       <ng-template #header>
