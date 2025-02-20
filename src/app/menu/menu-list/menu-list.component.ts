@@ -56,7 +56,7 @@ export class MenuListComponent implements OnInit {
   loadDishes() {
     this.loading = true;
     this.changeDetectorRef.detectChanges();
-    
+
     this.dishesService.getDishesByPage((this.first / this.rows) + 1, this.rows).subscribe({
       next: (response) => {
         if (!response.error) {
@@ -70,7 +70,7 @@ export class MenuListComponent implements OnInit {
         console.error(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los platos.' });
       },
-      complete: () =>{
+      complete: () => {
         this.loading = false;
       }
     });
@@ -88,7 +88,12 @@ export class MenuListComponent implements OnInit {
   }
 
   deleteDish(dish: Dish) {
+
     this.sharedConfirmationService.confirmDelete('¿Estás seguro de que deseas eliminar este plato?', () => {
+      
+      this.loading = true;
+      this.changeDetectorRef.detectChanges();
+
       this.dishesService.deleteDish(dish.dishid!.toString()).subscribe({
         next: (response) => {
           if (!response.error) {
@@ -101,6 +106,9 @@ export class MenuListComponent implements OnInit {
         error: (error) => {
           console.error(error);
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el plato.' });
+        },
+        complete: () => {
+          this.loading = false;
         }
       });
     });
