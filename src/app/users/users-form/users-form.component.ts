@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { MessageService } from 'primeng/api';
@@ -18,12 +18,13 @@ import { SharedMessageService } from '../../services/shared-message.service';
 import { PasswordModule } from 'primeng/password';
 
 @Component({
-    selector: 'app-users-form',
-    templateUrl: './users-form.component.html',
-    styleUrls: ['./users-form.component.scss'],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, PasswordModule, MessageModule]
+  selector: 'app-users-form',
+  templateUrl: './users-form.component.html',
+  styleUrls: ['./users-form.component.scss'],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, ToastModule, ConfirmDialogModule, CardModule, InputTextModule, PasswordModule, MessageModule]
 })
 export class UsersFormComponent implements OnInit {
+  loading: boolean = false;
   userForm: FormGroup;
   isEditMode: boolean = false;
   roles = [
@@ -32,6 +33,7 @@ export class UsersFormComponent implements OnInit {
   ];
 
   constructor(private fb: FormBuilder,
+    private changeDetectorRef: ChangeDetectorRef,
     private messageService: MessageService,
     private route: ActivatedRoute,
     private usersService: UsersService,
@@ -71,6 +73,10 @@ export class UsersFormComponent implements OnInit {
 
   onSubmit() {
     if (this.userForm.valid) {
+
+      this.loading = true;
+      this.changeDetectorRef.detectChanges();
+
       const newUser: User = this.userForm.value;
       if (this.isEditMode) {
 
@@ -88,6 +94,9 @@ export class UsersFormComponent implements OnInit {
           error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo actualizar el usuario.' });
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
 
@@ -105,6 +114,9 @@ export class UsersFormComponent implements OnInit {
           error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo crear el usuario.' });
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
 

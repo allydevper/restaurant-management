@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -12,6 +12,7 @@ import { CardModule } from 'primeng/card';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { SharedMessageService } from '../../services/shared-message.service';
+import { SharedConfirmationService } from '../../services/shared-confirmation.service';
 
 @Component({
   selector: 'app-users-list',
@@ -28,10 +29,11 @@ export class UsersListComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
-    private confirmationService: ConfirmationService,
+    private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private usersService: UsersService,
-    private sharedMessageService: SharedMessageService
+    private sharedMessageService: SharedMessageService,
+    private sharedConfirmationService: SharedConfirmationService
   ) { }
 
   ngOnInit() {
@@ -41,8 +43,6 @@ export class UsersListComponent implements OnInit {
         this.messageService.add(sharedMessage);
       }, 0);
     }
-
-    this.loadUsersLazy({ first: this.first, rows: this.rows });
   }
 
   loadUsersLazy(event: any) {
@@ -74,32 +74,28 @@ export class UsersListComponent implements OnInit {
   }
 
   deleteUser(user: User) {
-    this.confirmationService.confirm({
-      message: '¿Estás seguro de que deseas eliminar este usuario?',
-      header: 'Confirmar',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Si',
-      rejectLabel: 'No',
-      accept: () => {
-        this.loading = true;
-        this.usersService.deleteUser(user.userid!.toString()).subscribe({
-          next: (response) => {
-            if (!response.error) {
-              this.users = this.users.filter(u => u.userid !== user.userid);
-              this.messageService.add({ severity: 'success', summary: 'Usuario Eliminado', detail: 'El usuario ha sido eliminado correctamente.' });
-            } else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
-            }
-          },
-          error: (error) => {
-            console.error(error);
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el usuario.' });
-          },
-          complete: () => {
-            this.loading = false;
+    this.sharedConfirmationService.confirmDelete('¿Estás seguro de que deseas eliminar este usuario?', () => {
+
+      this.loading = true;
+      this.changeDetectorRef.detectChanges();
+
+      this.usersService.deleteUser(user.userid!.toString()).subscribe({
+        next: (response) => {
+          if (!response.error) {
+            this.users = this.users.filter(u => u.userid !== user.userid);
+            this.messageService.add({ severity: 'success', summary: 'Usuario Eliminado', detail: 'El usuario ha sido eliminado correctamente.' });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
           }
-        });
-      }
+        },
+        error: (error) => {
+          console.error(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el usuario.' });
+        },
+        complete: () => {
+          this.loading = false;
+        }
+      });
     });
   }
 
