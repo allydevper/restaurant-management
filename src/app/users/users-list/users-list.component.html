@@ -10,15 +10,16 @@
       <button size="small" pButton label="Agregar Usuario" icon="pi pi-plus" (click)="createUser()" type="button"
         class="p-button-success"></button>
     </div>
-    <p-table [value]="users" [paginator]="true" [rows]="10" [rowHover]="true" dataKey="userid"
+    <p-table [value]="users" [paginator]="true" [rows]="rows" [totalRecords]="totalRecords" [first]="first"
+      (onLazyLoad)="loadUsersLazy($event)" [rowHover]="true" dataKey="userid" [lazy]="true" [loading]="loading"
       currentPageReportTemplate="Registros {first} a {last} de {totalRecords} en total" [showCurrentPageReport]="true"
       showGridlines>
       <ng-template #header>
         <tr>
           <th style="width:80px"></th>
-          <th>Usuario</th>
-          <th>Rol</th>
-          <th>Creación</th>
+          <th style="width:500px">Usuario</th>
+          <th style="width:180px">Rol</th>
+          <th style="width:140px">Creación</th>
         </tr>
       </ng-template>
       <ng-template #body let-user>

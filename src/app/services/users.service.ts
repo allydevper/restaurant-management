@@ -23,6 +23,10 @@ export class UsersService {
     return this.http.get<{ data: User[]; error?: ErrorResponse }>(this.apiUrl);
   }
 
+  getUsersByPage(page: number, pageSize: number): Observable<{ data: User[]; count: number; error?: ErrorResponse }> {
+    return this.http.get<{ data: User[]; count: number; error?: ErrorResponse }>(`${this.apiUrl}/${page}/${pageSize}`);
+  }
+
   getUserById(id: string): Observable<{ data?: User; error?: ErrorResponse }> {
     return this.http.get<{ data?: User; error?: ErrorResponse }>(`${this.apiUrl}/${id}`);
   }

@@ -14,13 +14,17 @@ import { UsersService } from '../../services/users.service';
 import { SharedMessageService } from '../../services/shared-message.service';
 
 @Component({
-    selector: 'app-users-list',
-    templateUrl: './users-list.component.html',
-    styleUrls: ['./users-list.component.scss'],
-    imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule]
+  selector: 'app-users-list',
+  templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule, TableModule, ButtonModule, ToastModule, ConfirmDialogModule, PaginatorModule, CardModule]
 })
 export class UsersListComponent implements OnInit {
   users: User[] = [];
+  loading: boolean = false;
+  totalRecords: number = 0;
+  rows: number = 10;
+  first: number = 0;
 
   constructor(
     private messageService: MessageService,
@@ -38,10 +42,19 @@ export class UsersListComponent implements OnInit {
       }, 0);
     }
 
-    this.usersService.getUsers().subscribe({
+    this.loadUsersLazy({ first: this.first, rows: this.rows });
+  }
+
+  loadUsersLazy(event: any) {
+    this.loading = true;
+    this.first = event.first;
+    this.rows = event.rows;
+
+    this.usersService.getUsersByPage((this.first / this.rows) + 1, this.rows).subscribe({
       next: (response) => {
         if (!response.error) {
           this.users = response.data;
+          this.totalRecords = response.count;
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: response.error.message });
         }
@@ -49,6 +62,9 @@ export class UsersListComponent implements OnInit {
       error: (error) => {
         console.error(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudieron cargar los usuarios.' });
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
   }
@@ -65,6 +81,7 @@ export class UsersListComponent implements OnInit {
       acceptLabel: 'Si',
       rejectLabel: 'No',
       accept: () => {
+        this.loading = true;
         this.usersService.deleteUser(user.userid!.toString()).subscribe({
           next: (response) => {
             if (!response.error) {
@@ -77,9 +94,11 @@ export class UsersListComponent implements OnInit {
           error: (error) => {
             console.error(error);
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el usuario.' });
+          },
+          complete: () => {
+            this.loading = false;
           }
-        }
-        );
+        });
       }
     });
   }
