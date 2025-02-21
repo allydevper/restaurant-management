@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
-import { OrdersService } from '../services/orders.service';
-import { TablesService } from '../services/tables.service';
-import { DishesService } from '../services/dishes.service';
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
-    selector: 'app-dashboard',
-    imports: [CommonModule, CardModule],
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+  selector: 'app-dashboard',
+  imports: [CommonModule, CardModule],
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   totalTables: number = 0;
@@ -18,9 +16,7 @@ export class DashboardComponent implements OnInit {
   totalIncome: number = 0;
 
   constructor(
-    private ordersService: OrdersService,
-    private tablesService: TablesService,
-    private dishesService: DishesService
+    private dashboardService: DashboardService,
   ) { }
 
   ngOnInit() {
@@ -30,10 +26,10 @@ export class DashboardComponent implements OnInit {
   }
 
   loadTables() {
-    this.tablesService.getTables().subscribe({
+    this.dashboardService.getTables().subscribe({
       next: (response) => {
         if (!response.error) {
-          this.totalTables = response.data.length;
+          this.totalTables = response.count;
         } else {
           console.error(response.error.message);
         }
@@ -45,11 +41,11 @@ export class DashboardComponent implements OnInit {
   }
 
   loadOrders() {
-    this.ordersService.getOrders().subscribe({
+    this.dashboardService.getOrders().subscribe({
       next: (response) => {
         if (!response.error) {
-          this.totalOrders = response.data.length;
-          this.totalIncome = response.data.reduce((acc, order) => acc + order.total!, 0);
+          this.totalOrders = response.totalOrders;
+          this.totalIncome = response.totalIncome;
         } else {
           console.error(response.error.message);
         }
@@ -61,10 +57,10 @@ export class DashboardComponent implements OnInit {
   }
 
   loadDishes() {
-    this.dishesService.getDishes().subscribe({
+    this.dashboardService.getDishes().subscribe({
       next: (response) => {
         if (!response.error) {
-          this.totalDishes = response.data.length;
+          this.totalDishes = response.count;
         } else {
           console.error(response.error.message);
         }
