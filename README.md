@@ -1,6 +1,6 @@
 # Gestión de Restaurantes
 
-Este proyecto, **restaurant-management**, está actualmente en la versión **0.0.0**. Fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 18.1.3.
+Este proyecto, **restaurant-management**, está actualmente en la versión **0.0.1**. Fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 18.1.3.
 
 ## Descripción del Proyecto
 
